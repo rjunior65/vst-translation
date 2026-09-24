@@ -1,0 +1,14 @@
+# Local-only dev config (never publish — contains local XAMPP DB settings)
+includes/config.local.php
+
+# Admin-uploaded content (lives on the server, not in the repo)
+uploads/team/*
+uploads/tourism/*
+!uploads/team/.htaccess
+!uploads/tourism/.htaccess
+
+# OS / editor junk
+Thumbs.db
+Desktop.ini
+.DS_Store
+*.log

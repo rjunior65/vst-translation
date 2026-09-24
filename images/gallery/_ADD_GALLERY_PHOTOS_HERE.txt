@@ -1,0 +1,5 @@
+Two uses:
+ 1) Tourism gallery: tour-1.jpg ... tour-6.jpg
+ 2) Translation examples: sample-personal.jpg, sample-certificate.jpg,
+    sample-immigration.jpg, sample-legal.jpg
+IMPORTANT: blur/remove ALL personal data before publishing sample docs.

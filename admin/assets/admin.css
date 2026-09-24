@@ -1,0 +1,105 @@
+/* VST Admin — minimal, clean styling (brand colors) */
+:root{
+  --blue:#123b6d; --blue-dk:#0c2748; --red:#c62828; --gray:#f5f7fa;
+  --border:#e2e8f0; --text:#263243; --muted:#64748b; --ok:#188a4a;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--text);background:var(--gray);line-height:1.55}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:960px;margin:0 auto;padding:0 18px}
+h1{color:var(--blue);margin:.4em 0}
+h2{color:var(--blue);margin-top:1.6em}
+.muted{color:var(--muted)}
+.hint{color:var(--muted);font-size:.85rem;display:block;margin-top:.2rem;font-weight:400}
+
+/* Top bar */
+.admin-bar{background:var(--blue);color:#fff}
+.admin-bar-inner{display:flex;align-items:center;justify-content:space-between;height:58px}
+.admin-brand{color:#fff;font-weight:800;font-size:1.2rem;letter-spacing:1px}
+.admin-brand span{color:#ffd7d7;font-weight:600;font-size:.9rem}
+.admin-nav a{color:#dce6f4;margin-left:1.1rem;font-weight:600}
+.admin-nav a:hover{color:#fff;text-decoration:none}
+.admin-nav .logout{color:#ffb4b4}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:.4rem;border:1px solid var(--border);background:#fff;color:var(--blue);
+  font-weight:600;padding:.5rem .95rem;border-radius:8px;cursor:pointer;font-size:.92rem}
+.btn:hover{text-decoration:none;border-color:var(--blue)}
+.btn-primary{background:var(--red);color:#fff;border-color:var(--red)}
+.btn-primary:hover{background:#9e1f1f;border-color:#9e1f1f}
+.btn-danger{color:#b3261e;border-color:#f0c4c1}
+.btn-danger:hover{background:#fff2f1;border-color:#b3261e}
+.btn-sm{padding:.35rem .7rem;font-size:.82rem}
+.btn-block{width:100%;justify-content:center;margin-top:.4rem}
+
+/* Login */
+.login-body{display:grid;place-items:center;min-height:100vh;background:linear-gradient(160deg,var(--blue),var(--blue-dk))}
+.login-card{background:#fff;padding:34px 30px;border-radius:16px;box-shadow:0 20px 50px rgba(0,0,0,.25);width:min(92vw,360px);display:flex;flex-direction:column}
+.login-logo{font-weight:800;letter-spacing:2px;color:var(--blue);font-size:1.6rem;text-align:center}
+.login-card h1{text-align:center;font-size:1.25rem;margin:.2em 0 1em}
+.login-card label{font-size:.82rem;font-weight:700;color:var(--blue);margin-top:.6rem}
+.login-card input{padding:.7rem .8rem;border:1px solid var(--border);border-radius:8px;font-size:1rem;margin-top:.25rem}
+.login-hint{text-align:center;color:var(--muted);font-size:.8rem;margin:.9rem 0 0}
+
+/* Alerts */
+.alert{padding:.7rem .9rem;border-radius:8px;margin:.8rem 0;font-size:.92rem}
+.alert-error{background:#fdecec;color:#a4231b;border:1px solid #f3c7c3}
+.alert-error ul{margin:.2rem 0 0 1rem;padding:0}
+.alert-ok{background:#e8f6ee;color:var(--ok);border:1px solid #bfe5cd}
+
+/* Dashboard */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin:1rem 0}
+.tile{background:#fff;border:1px solid var(--border);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:.2rem}
+a.tile:hover{border-color:var(--blue);text-decoration:none}
+.tile-num{font-size:2rem;font-weight:800;color:var(--red)}
+.tile-label{color:var(--muted);font-size:.9rem}
+.link-list{list-style:none;padding:0}
+.link-list li{padding:.6rem 0;border-bottom:1px solid var(--border)}
+.link-list .soon{color:var(--muted)}
+.link-list .soon span{font-size:.8rem}
+
+/* Table */
+.page-head{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.table-scroll{overflow-x:auto;background:#fff;border:1px solid var(--border);border-radius:12px;margin-top:1rem}
+table.grid{width:100%;border-collapse:collapse;min-width:640px}
+table.grid th,table.grid td{padding:.7rem .8rem;text-align:left;border-bottom:1px solid var(--border);vertical-align:middle}
+table.grid th{background:var(--gray);font-size:.78rem;text-transform:uppercase;letter-spacing:.5px;color:var(--muted)}
+.thumb{width:44px;height:44px;object-fit:cover;object-position:center top;border-radius:8px;background:var(--gray)}
+.tag{background:var(--gray);border:1px solid var(--border);border-radius:999px;padding:.15rem .6rem;font-size:.78rem;font-weight:600;color:var(--blue)}
+.row-actions{white-space:nowrap;display:flex;gap:.4rem}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:.4rem}
+.dot.on{background:var(--ok)}.dot.off{background:#c9ccd1}
+
+/* Form */
+.form{background:#fff;border:1px solid var(--border);border-radius:12px;padding:22px;max-width:680px}
+.form label{display:block;font-weight:700;color:var(--blue);font-size:.9rem;margin-top:1rem}
+.form input[type=text],.form input[type=email],.form input[type=number],.form select,.form textarea{
+  width:100%;padding:.6rem .75rem;border:1px solid var(--border);border-radius:8px;font-size:1rem;margin-top:.25rem;font-family:inherit}
+.form fieldset{border:1px solid var(--border);border-radius:10px;margin-top:1.2rem;padding:.4rem 1rem 1rem}
+.form legend{color:var(--blue);font-weight:700;font-size:.85rem;padding:0 .4rem}
+.form .two{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.form .check{display:flex;align-items:center;gap:.5rem;margin-top:1.2rem}
+.form .check input{width:auto;margin:0}
+.preview{width:96px;height:96px;object-fit:cover;object-position:center top;border-radius:10px;border:1px solid var(--border);margin-top:.6rem}
+.form-actions{margin-top:1.4rem;display:flex;gap:.6rem}
+.back{font-weight:600}
+@media(max-width:560px){.form .two{grid-template-columns:1fr}}
+
+/* ---- Mobile (admin usable on a phone) ---- */
+@media (max-width: 640px) {
+  .admin-bar-inner { flex-direction: column; height: auto; padding: .55rem 0; gap: .45rem; }
+  .admin-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: .3rem 1rem; }
+  .admin-nav a { margin-left: 0; }
+  .page-head { gap: .6rem; }
+  .page-head .btn { width: 100%; justify-content: center; }
+  .row-actions { flex-direction: column; }
+  h1 { font-size: 1.5rem; }
+}
+
+/* Gallery admin */
+.gallery-admin{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px;margin-top:1rem}
+.ga-item{margin:0;background:#fff;border:1px solid var(--border);border-radius:10px;overflow:hidden;display:flex;flex-direction:column}
+.ga-item img{width:100%;height:120px;object-fit:cover}
+.ga-item figcaption{padding:.4rem .6rem;font-size:.8rem;color:var(--muted);flex:1}
+.ga-item form{padding:0 .6rem .6rem}

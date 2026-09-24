@@ -1,0 +1,16 @@
+# Uploaded photos only — never allow code to run or be fetched here.
+# (Avoids php_flag, which can 500 on HostGator's FastCGI/FPM PHP.)
+
+<FilesMatch "\.(php|phtml|php3|php4|php5|php7|phps|phar|cgi|pl|py|sh)$">
+  Require all denied
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</FilesMatch>
+
+# Strip any PHP handler if the server has one (safe if it doesn't).
+<IfModule mod_mime.c>
+  RemoveHandler .php .phtml .php3 .php4 .php5 .php7 .phar
+  RemoveType .php .phtml .php3 .php4 .php5 .php7 .phar
+</IfModule>

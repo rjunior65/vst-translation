@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  PLACEHOLDER LOGO  ·  VST
+  Temporary placeholder (globe + "VST") using the brand colors.
+  REPLACE THIS FILE with the official VST logo (PNG works too, just
+  change the src to vst-logo.png in index.html: header, hero and footer).
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 190 90" width="190" height="90" role="img" aria-label="VST">
+  <defs>
+    <linearGradient id="vstGlobe" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1a4f9c"/>
+      <stop offset="1" stop-color="#123b6d"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Globe mark -->
+  <g transform="translate(8 12)">
+    <circle cx="33" cy="33" r="32" fill="url(#vstGlobe)"/>
+    <g fill="none" stroke="#ffffff" stroke-width="2" opacity="0.9">
+      <ellipse cx="33" cy="33" rx="32" ry="32"/>
+      <ellipse cx="33" cy="33" rx="14" ry="32"/>
+      <ellipse cx="33" cy="33" rx="30" ry="13"/>
+      <line x1="1" y1="33" x2="65" y2="33"/>
+    </g>
+    <path d="M33 8 a25 25 0 0 1 0 50" fill="none" stroke="#c62828" stroke-width="4" stroke-linecap="round"/>
+  </g>
+
+  <!-- Wordmark: VST only -->
+  <text x="84" y="58" font-family="Georgia, 'Times New Roman', serif" font-size="42" font-weight="700" fill="#123b6d">VST</text>
+</svg>

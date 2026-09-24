@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<!--
+  ================================================================
+  VST TRANSLATION  —  Official presentation website
+  ----------------------------------------------------------------
+  100% static: HTML5 + CSS3 + Vanilla JavaScript. No build tools.
+  Upload the CONTENTS of this folder into HostGator's public_html/.
+
+  QUICK EDIT GUIDE (no coding needed for most of it):
+    - Logo ............ images/logo/vst-logo.png  (replace the file)
+    - CEO photos ...... images/ceos/dix-aponte.jpg / vanusa-da-silva.jpg
+    - Team members .... edit the "employees" array in js/script.js
+    - Phones/emails ... search for  [ADD ...]  below and in js/script.js
+    - Colors .......... css/style.css  ->  :root  (VST BRAND COLORS)
+    - Texts (3 langs).. js/script.js  ->  translations object
+  ================================================================
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ============ SEO ============ -->
+  <title>VST | Translation, Tourism &amp; Professional Services</title>
+  <meta name="description" content="Discover VST services including professional translations, documentation assistance, Work Permit assistance, tourism services and personalized support." />
+  <meta name="theme-color" content="#123b6d" />
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://vst-translation.com/" />
+
+  <!-- ============ Open Graph / social preview ============ -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="VST | Translation, Tourism &amp; Professional Services" />
+  <meta property="og:description" content="Professional translation, documentation, Work Permit assistance and tourism services connecting people and opportunities." />
+  <meta property="og:image" content="images/icon-512.png" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:url" content="https://vst-translation.com/" />
+
+  <!-- ============ Favicon ============ -->
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
+
+  <!-- ============ Mobile app (PWA — "Add to Home Screen") ============ -->
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="VST" />
+
+  <!-- ============ Fonts ============ -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- ============ Styles ============ -->
+  <link rel="stylesheet" href="css/style.css" />
+
+  <!-- ============ Basic Organization schema markup ============ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "VST",
+    "description": "Professional translation, documentation assistance, Work Permit assistance and tourism services.",
+    "logo": "images/logo/vst-logo.png",
+    "email": "vstranslation2025@gmail.com"
+  }
+  </script>
+</head>
+
+<body>
+
+<a class="skip-link" href="#hero" data-i18n="skip_link">Skip to main content</a>
+
+<!-- ================================================================ -->
+<!-- STICKY NAVIGATION / HEADER                                        -->
+<!-- ================================================================ -->
+<header class="site-header" id="siteHeader">
+  <div class="container header-inner">
+
+    <!-- Logo (replace images/logo/vst-logo.png with the official logo) -->
+    <a href="#hero" class="brand" aria-label="VST - Home">
+      <img src="images/logo/vst-logo.png" alt="VST" class="brand-logo" />
+    </a>
+
+    <!-- Primary navigation -->
+    <nav class="main-nav" id="mainNav" aria-label="Main navigation">
+      <ul class="nav-list">
+        <li><a href="#hero" data-i18n="nav_home">Home</a></li>
+        <li><a href="#about" data-i18n="nav_about">About</a></li>
+        <li><a href="#services" data-i18n="nav_services">Services</a></li>
+        <li><a href="#tourism" data-i18n="nav_tourism">Tourism</a></li>
+        <li><a href="#leadership" data-i18n="nav_leadership">Leadership</a></li>
+        <li><a href="#team" data-i18n="nav_team">Our Team</a></li>
+        <li><a href="#faq" data-i18n="nav_faq">FAQ</a></li>
+        <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
+      </ul>
+
+      <!-- Language selector (mobile position, duplicated for the menu) -->
+      <div class="lang-switch lang-switch--mobile" role="group" aria-label="Language">
+        <button type="button" class="lang-btn" data-lang="en">EN</button>
+        <span class="lang-sep">|</span>
+        <button type="button" class="lang-btn" data-lang="pt">PT</button>
+        <span class="lang-sep">|</span>
+        <button type="button" class="lang-btn" data-lang="es">ES</button>
+      </div>
+
+      <a href="#contact" class="btn btn-primary nav-cta" data-i18n="nav_cta">Contact Us</a>
+    </nav>
+
+    <!-- Desktop language selector + hamburger -->
+    <div class="header-actions">
+      <div class="lang-switch lang-switch--desktop" role="group" aria-label="Language">
+        <button type="button" class="lang-btn" data-lang="en">EN</button>
+        <span class="lang-sep">|</span>
+        <button type="button" class="lang-btn" data-lang="pt">PT</button>
+        <span class="lang-sep">|</span>
+        <button type="button" class="lang-btn" data-lang="es">ES</button>
+      </div>
+
+      <button type="button" class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mainNav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ============================================================ -->
+  <!-- 1. HERO                                                       -->
+  <!-- ============================================================ -->
+  <section class="hero" id="hero">
+    <div class="hero-bg" aria-hidden="true"></div>
+    <div class="container hero-inner">
+      <div class="hero-content reveal">
+        <img src="images/logo/vst-logo.png" alt="VST" class="hero-logo" />
+        <span class="hero-eyebrow" data-i18n="hero_eyebrow">Translation · Tourism · Professional Services</span>
+        <h1 class="hero-title" data-i18n="hero_title">Connecting People, Languages &amp; Opportunities</h1>
+        <p class="hero-desc" data-i18n="hero_desc">Professional translation, documentation, tourism assistance and personalized services connecting people and opportunities.</p>
+        <div class="hero-actions">
+          <a href="#services" class="btn btn-primary btn-lg" data-i18n="hero_cta_services">Explore Our Services</a>
+          <a href="#contact" class="btn btn-outline btn-lg" data-i18n="hero_cta_contact">Contact VST</a>
+        </div>
+        <ul class="hero-badges" aria-hidden="true">
+          <li>🌍 <span data-i18n="hero_badge_intl">International</span></li>
+          <li>📄 <span data-i18n="hero_badge_docs">Documentation</span></li>
+          <li>✈️ <span data-i18n="hero_badge_travel">Travel</span></li>
+          <li>💬 <span data-i18n="hero_badge_langs">3 Languages</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 2. ABOUT VST TRANSLATION                                      -->
+  <!-- Edit the About texts in js/script.js (about_* keys)           -->
+  <!-- ============================================================ -->
+  <section class="section" id="about">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-eyebrow" data-i18n="about_eyebrow">About Us</span>
+        <h2 class="section-title" data-i18n="about_title">About VST</h2>
+        <p class="section-lead" data-i18n="about_lead">We connect people, documents and destinations with professional, reliable and personalized service.</p>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-text reveal">
+          <p data-i18n="about_p1">VST is a professional services company dedicated to helping people communicate, travel and handle documentation across languages and borders.</p>
+          <p data-i18n="about_p2">Our team combines translation expertise, tourism knowledge and documentation support to deliver a smooth, trustworthy experience for every client.</p>
+        </div>
+
+        <!-- Mission / Vision / Values cards -->
+        <div class="mvv-grid">
+          <article class="card mvv-card reveal">
+            <div class="mvv-icon">🎯</div>
+            <h3 data-i18n="about_mission_t">Mission</h3>
+            <p data-i18n="about_mission_d">To connect people and opportunities through accurate translation and dedicated professional support.</p>
+          </article>
+          <article class="card mvv-card reveal">
+            <div class="mvv-icon">🌟</div>
+            <h3 data-i18n="about_vision_t">Vision</h3>
+            <p data-i18n="about_vision_d">To be a trusted international reference in translation, documentation and tourism services.</p>
+          </article>
+          <article class="card mvv-card reveal">
+            <div class="mvv-icon">🤝</div>
+            <h3 data-i18n="about_values_t">Values</h3>
+            <p data-i18n="about_values_d">Trust, professionalism, confidentiality, care for people and attention to every detail.</p>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 4. MAIN SERVICES                                              -->
+  <!-- To add a service: copy one <article class="card service-card">-->
+  <!-- and translate its texts in js/script.js.                      -->
+  <!-- ============================================================ -->
+  <section class="section section-alt" id="services">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-eyebrow" data-i18n="services_eyebrow">What We Do</span>
+        <h2 class="section-title" data-i18n="services_title">Our Services</h2>
+        <p class="section-lead" data-i18n="services_lead">A complete range of professional services designed around your needs.</p>
+      </div>
+
+      <div class="cards-grid">
+
+        <article class="card service-card reveal">
+          <div class="service-icon">📝</div>
+          <h3 data-i18n="service_translation_t">Translation Services</h3>
+          <p data-i18n="service_translation_d">Professional translation of personal, legal, business and immigration documents.</p>
+          <div class="card-actions">
+            <a href="#translation" class="btn btn-sm btn-ghost" data-i18n="btn_learn_more">Learn More</a>
+            <a href="#contact" class="btn btn-sm btn-primary" data-i18n="btn_contact">Contact</a>
+          </div>
+        </article>
+
+        <article class="card service-card reveal">
+          <div class="service-icon">🛂</div>
+          <h3 data-i18n="service_workpermit_t">Work Permit Assistance</h3>
+          <p data-i18n="service_workpermit_d">Guidance and support with documentation and preparation for Work Permit applications.</p>
+          <div class="card-actions">
+            <a href="#workpermit" class="btn btn-sm btn-ghost" data-i18n="btn_learn_more">Learn More</a>
+            <a href="#contact" class="btn btn-sm btn-primary" data-i18n="btn_contact">Contact</a>
+          </div>
+        </article>
+
+        <article class="card service-card reveal">
+          <div class="service-icon">🌴</div>
+          <h3 data-i18n="service_tourism_t">Tourism Services</h3>
+          <p data-i18n="service_tourism_d">Travel assistance, destinations and personalized tourism support.</p>
+          <div class="card-actions">
+            <a href="#tourism" class="btn btn-sm btn-ghost" data-i18n="btn_learn_more">Learn More</a>
+            <a href="#contact" class="btn btn-sm btn-primary" data-i18n="btn_contact">Contact</a>
+          </div>
+        </article>
+
+        <article class="card service-card reveal">
+          <div class="service-icon">📁</div>
+          <h3 data-i18n="service_docs_t">Documentation Assistance</h3>
+          <p data-i18n="service_docs_d">Help organizing, preparing and reviewing important documents.</p>
+          <div class="card-actions">
+            <a href="#contact" class="btn btn-sm btn-ghost" data-i18n="btn_learn_more">Learn More</a>
+            <a href="#contact" class="btn btn-sm btn-primary" data-i18n="btn_contact">Contact</a>
+          </div>
+        </article>
+
+        <article class="card service-card reveal">
+          <div class="service-icon">⭐</div>
+          <h3 data-i18n="service_other_t">Other Professional Services</h3>
+          <p data-i18n="service_other_d">Additional personalized services tailored to your specific situation.</p>
+          <div class="card-actions">
+            <a href="#other-services" class="btn btn-sm btn-ghost" data-i18n="btn_learn_more">Learn More</a>
+            <a href="#contact" class="btn btn-sm btn-primary" data-i18n="btn_contact">Contact</a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 5. COMPANY PRESENTATION VIDEO                                 -->
+  <!-- Add your video at:  videos/company-presentation.mp4          -->
+  <!-- To use YouTube instead, see the commented block below.       -->
+  <!-- ============================================================ -->
+  <section class="section" id="video">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-eyebrow" data-i18n="video_eyebrow">Get to Know Us</span>
+        <h2 class="section-title" data-i18n="video_title">Meet VST</h2>
+        <p class="section-lead" data-i18n="video_lead">Watch our presentation and discover how we can help you.</p>
+      </div>
+
+      <div class="video-wrap reveal">
+        <!-- HTML5 video. preload="none" = does not autoplay / does not preload. -->
+        <video controls preload="none" poster="images/video-cover.svg" playsinline>
+          <source src="videos/company-presentation.mp4" type="video/mp4" />
+          <span data-i18n="video_fallback">Your browser does not support the video tag.</span>
+        </video>
+
+        <!--
+          ===== OPTION: use a YouTube video instead of a local file =====
+          Delete the <video> element above and uncomment this block,
+          replacing VIDEO_ID with your YouTube video id:
+
+          <div class="video-embed">
+            <iframe src="https://www.youtube.com/embed/VIDEO_ID"
+                    title="VST presentation"
+                    loading="lazy" allowfullscreen></iframe>
+          </div>
+        -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 6. TRANSLATION SERVICES (dedicated section)                   -->
+  <!-- ============================================================ -->
+  <section class="section section-alt" id="translation">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-eyebrow" data-i18n="tr_eyebrow">Translation</span>
+        <h2 class="section-title" data-i18n="tr_title">Translation Services</h2>
+        <p class="section-lead" data-i18n="tr_lead">Accurate, professional and confidential translation for every kind of document.</p>
+      </div>
+
+      <ul class="pill-grid reveal">
+        <li class="pill"><span>📜</span><span data-i18n="tr_birth">Birth Certificates</span></li>
+        <li class="pill"><span>💍</span><span data-i18n="tr_marriage">Marriage Certificates</span></li>
+        <li class="pill"><span>🪪</span><span data-i18n="tr_personal">Personal Documents</span></li>
+        <li class="pill"><span>⚖️</span><span data-i18n="tr_legal">Legal Documents</span></li>
+        <li class="pill"><span>🛃</span><span data-i18n="tr_immigration">Immigration Documents</span></li>
+        <li class="pill"><span>💼</span><span data-i18n="tr_business">Business Documents</span></li>
+        <li class="pill"><span>🎓</span><span data-i18n="tr_certificates">Certificates</span></li>
+        <li class="pill"><span>➕</span><span data-i18n="tr_other">Other Documents</span></li>
+      </ul>
+
+      <!-- ===================================================================== -->
+      <!-- TRANSLATION PORTFOLIO / EXAMPLES                                       -->
+      <!-- IMPORTANT: Before publishing any sample document, BLUR OR REMOVE all   -->
+      <!-- personal information (names, numbers, addresses). Never expose private -->
+      <!-- customer data. Drop images into images/gallery/ with these filenames   -->
+      <!-- (or change the src). Click an image to open the lightbox.              -->
+      <!-- ===================================================================== -->
+      <h3 class="subsection-title reveal" data-i18n="tr_portfolio_title">Translation Examples</h3>
+      <p class="subsection-note reveal" data-i18n="tr_portfolio_note">Sample translations. All personal information is removed or blurred.</p>
+
+      <div class="portfolio-grid reveal">
+        <figure class="portfolio-card lightbox-item" data-caption="Personal Documents">
+          <img src="images/gallery/sample-personal.jpg" alt="Translated personal document example" loading="lazy"
+               onerror="this.onerror=null;this.src='images/placeholder.svg';" />
+          <figcaption data-i18n="tr_cat_personal">Personal Documents</figcaption>
+        </figure>
+        <figure class="portfolio-card lightbox-item" data-caption="Certificates">
+          <img src="images/gallery/sample-certificate.jpg" alt="Translated certificate example" loading="lazy"
+               onerror="this.onerror=null;this.src='images/placeholder.svg';" />
+          <figcaption data-i18n="tr_cat_certificates">Certificates</figcaption>
+        </figure>
+        <figure class="portfolio-card lightbox-item" data-caption="Immigration">
+          <img src="images/gallery/sample-immigration.jpg" alt="Translated immigration document example" loading="lazy"
+               onerror="this.onerror=null;this.src='images/placeholder.svg';" />
+          <figcaption data-i18n="tr_cat_immigration">Immigration</figcaption>
+        </figure>
+        <figure class="portfolio-card lightbox-item" data-caption="Certifications">
+          <img src="images/gallery/sample-certification.jpg" alt="Translated certification example" loading="lazy"
+               onerror="this.onerror=null;this.src='images/placeholder.svg';" />
+          <figcaption data-i18n="tr_cat_certifications">Certifications</figcaption>
+        </figure>
+      </div>
+
+      <div class="section-cta reveal">
+        <a href="#contact" class="btn btn-primary btn-lg" data-i18n="tr_cta">Request Translation Information</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 7. WORK PERMIT ASSISTANCE                                     -->
+  <!-- ============================================================ -->
+  <section class="section" id="workpermit">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-eyebrow" data-i18n="wp_eyebrow">Assistance</span>
+        <h2 class="section-title" data-i18n="wp_title">Work Permit Assistance</h2>
+        <p class="section-lead" data-i18n="wp_lead">We assist with documentation and preparation for Work Permit applications.</p>
+      </div>
+
+      <div class="wp-grid">
+        <div class="wp-text reveal">
+          <p data-i18n="wp_p1">VST provides assistance with the documentation and preparation involved in Work Permit applications. We help you organize, translate and prepare the paperwork you may need.</p>
+
+          <h3 data-i18n="wp_how_t">How VST Assists</h3>
+          <ul class="check-list">
+            <li data-i18n="wp_how_1">Reviewing and organizing your documents</li>
+            <li data-i18n="wp_how_2">Translating documents when required</li>
+            <li data-i18n="wp_how_3">Helping you understand the general process</li>
+            <li data-i18n="wp_how_4">Preparing your application paperwork</li>
+          </ul>
+
+          <h3 data-i18n="wp_docs_t">Documents That May Be Necessary</h3>
+          <ul class="check-list">
+            <li data-i18n="wp_docs_1">Identification and personal documents</li>
+            <li data-i18n="wp_docs_2">Certificates (birth, marriage, etc.)</li>
+            <li data-i18n="wp_docs_3">Professional or educational documents</li>
+            <li data-i18n="wp_docs_4">Other supporting documentation</li>
+          </ul>
+        </div>
+
+        <aside class="wp-note card reveal">
+          <h3 data-i18n="wp_important_t">Important Information</h3>
+          <p data-i18n="wp_important_d">VST is a private services company. We are not a government agency and we do not guarantee approval of any application. We provide professional assistance with documentation and application preparation.</p>
+          <div class="wp-cta">
+            <a href="#contact" class="btn btn-primary" data-i18n="wp_cta_learn">Learn More About Work Permit Assistance</a>
+            <a href="#contact" class="btn btn-outline" data-i18n="btn_contact_vst">Contact VST</a>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 8. TOURISM SERVICES                                           -->
+  <!-- Add destinations: copy one <article class="destination-card"> -->
+  <!-- and drop a photo into images/tourism/.                        -->
+  <!-- ============================================================ -->
+  <section class="section section-alt" id="tourism">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-eyebrow" data-i18n="tour_eyebrow">Explore</span>
+        <h2 class="section-title" data-i18n="tour_title">Tourism Services</h2>
+        <p class="section-lead" data-i18n="tour_lead">Discover destinations and travel with confidence and personalized support.</p>
+      </div>
+
+      <div class="destinations-grid" id="destinationsGrid">
+
+        <!-- DESTINATION CARD — Paruima Village -->
+        <!-- To add another destination: copy this whole <article> block, change the
+             photo (images/tourism/...) and the tour_dX_* texts in js/script.js. -->
+        <article class="card destination-card reveal">
+          <div class="destination-photo lightbox-item" data-caption="Paruima Village, Guyana">
+            <img src="images/tourism/paruima-village.jpg" alt="Rainforest valley near Paruima Village, Guyana" loading="lazy"
+                 onerror="this.onerror=null;this.src='images/placeholder.svg';" />
+          </div>
+          <div class="destination-body">
+            <h3 data-i18n="tour_d1_name">Paruima Village</h3>
+            <p class="destination-loc">📍 <span data-i18n="tour_d1_loc">Upper Mazaruni, Guyana</span></p>
+            <p data-i18n="tour_d1_desc">A remote Amerindian village and home of the Arekuna people, surrounded by rainforest, rivers and stunning waterfalls in the Upper Mazaruni.</p>
+            <div class="card-actions">
+              <button type="button" class="btn btn-sm btn-ghost lightbox-open" data-target="images/tourism/paruima-village.jpg" data-caption="Paruima Village, Guyana" data-i18n="tour_view">View Photos</button>
+              <a href="#contact" class="btn btn-sm btn-primary" data-i18n="tour_request">Request Information</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- DESTINATION CARD — Malali Reservation -->
+        <article class="card destination-card reveal">
+          <div class="destination-photo lightbox-item" data-caption="Malali Reservation, Guyana">
+            <img src="images/tourism/malali-reservation.jpg" alt="Sunset over the river at Malali Reservation, Guyana" loading="lazy"
+                 onerror="this.onerror=null;this.src='images/placeholder.svg';" />
+          </div>
+          <div class="destination-body">
+            <h3 data-i18n="tour_d2_name">Malali Reservation</h3>
+            <p class="destination-loc">📍 <span data-i18n="tour_d2_loc">Demerara River, Guyana</span></p>
+            <p data-i18n="tour_d2_desc">A peaceful riverside Amerindian community surrounded by rainforest, with river beaches and a relaxing natural setting to unwind and explore.</p>
+            <div class="card-actions">
+              <button type="button" class="btn btn-sm btn-ghost lightbox-open" data-target="images/tourism/malali-reservation.jpg" data-caption="Malali Reservation, Guyana" data-i18n="tour_view">View Photos</button>
+              <a href="#contact" class="btn btn-sm btn-primary" data-i18n="tour_request">Request Information</a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- ======================================================== -->
+      <!-- TOURISM PHOTO GALLERY  (click any photo to enlarge)       -->
+      <!-- Drop photos into images/gallery/ with these filenames.   -->
+      <!-- ======================================================== -->
+      <h3 class="subsection-title reveal" data-i18n="gallery_title">Tourism Gallery</h3>
+      <div class="gallery-grid reveal" id="galleryGrid">
+        <div class="gallery-item lightbox-item" data-caption="Paruima Village — valley view">
+          <img src="images/gallery/paruima-1.jpg" alt="Rainforest valley near Paruima Village, Guyana" loading="lazy"
+               onerror="this.onerror=null;this.src='images/placeholder.svg';" />
+        </div>
+        <div class="gallery-item lightbox-item" data-caption="Welcome to Paruima — Home of the Arekuna People">
+          <img src="images/gallery/paruima-2.jpg" alt="Welcome to Paruima sign, Guyana" loading="lazy"
+               onerror="this.onerror=null;this.src='images/placeholder.svg';" />
+        </div>
+        <div class="gallery-item lightbox-item" data-caption="Waterfall near Paruima Village">
+          <img src="images/gallery/paruima-3.jpg" alt="Waterfall and natural pool near Paruima Village, Guyana" loading="lazy"
+               onerror="this.onerror=null;this.src='images/placeholder.svg';" />
+        </div>
+        <div class="gallery-item lightbox-item" data-caption="Paruima Village from above">
+          <img src="images/gallery/paruima-4.jpg" alt="Aerial view of Paruima Village, Upper Mazaruni, Guyana" loading="lazy"
+               onerror="this.onerror=null;this.src='images/placeholder.svg';" />
+        </div>
+        <div class="gallery-item lightbox-item" data-caption="Rapids near Paruima Village">
+          <img src="images/gallery/paruima-5.jpg" alt="Cascading rapids near Paruima Village, Guyana" loading="lazy"
+               onerror="this.onerror=null;this.src='images/placeholder.svg';" />
+        </div>
+        <div class="gallery-item lightbox-item" data-caption="Sunset over Malali Reservation">
+          <img src="images/gallery/malali-1.jpg" alt="Sunset over the river at Malali Reservation, Guyana" loading="lazy"
+               onerror="this.onerror=null;this.src='images/placeholder.svg';" />
+        </div>
+        <div class="gallery-item lightbox-item" data-caption="Historic ruins at Malali Reservation">
+          <img src="images/gallery/malali-2.jpg" alt="Aerial view of historic ruins at Malali Reservation, Guyana" loading="lazy"
+               onerror="this.onerror=null;this.src='images/placeholder.svg';" />
+        </div>
+        <div class="gallery-item lightbox-item" data-caption="Riverside at Malali Reservation">
+          <img src="images/gallery/malali-3.jpg" alt="Riverside area at Malali Reservation, Guyana" loading="lazy"
+               onerror="this.onerror=null;this.src='images/placeholder.svg';" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- OTHER SERVICES (flexible — duplicate a card to add more)      -->
+  <!-- ============================================================ -->
+  <section class="section" id="other-services">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-eyebrow" data-i18n="other_eyebrow">More</span>
+        <h2 class="section-title" data-i18n="other_title">Other Services</h2>
+        <p class="section-lead" data-i18n="other_lead">Additional professional services we are happy to provide.</p>
+      </div>
+      <div class="cards-grid">
+        <article class="card service-card reveal">
+          <div class="service-icon">🗂️</div>
+          <h3 data-i18n="other_1_t">Document Organization</h3>
+          <p data-i18n="other_1_d">Help gathering and organizing the paperwork you need.</p>
+          <div class="card-actions">
+            <a href="#contact" class="btn btn-sm btn-primary" data-i18n="btn_contact">Contact</a>
+          </div>
+        </article>
+        <article class="card service-card reveal">
+          <div class="service-icon">🧭</div>
+          <h3 data-i18n="other_2_t">Personalized Guidance</h3>
+          <p data-i18n="other_2_d">Personalized support tailored to your specific situation.</p>
+          <div class="card-actions">
+            <a href="#contact" class="btn btn-sm btn-primary" data-i18n="btn_contact">Contact</a>
+          </div>
+        </article>
+        <article class="card service-card reveal">
+          <div class="service-icon">✉️</div>
+          <h3 data-i18n="other_3_t">Correspondence Support</h3>
+          <p data-i18n="other_3_d">Assistance drafting and understanding official correspondence.</p>
+          <div class="card-actions">
+            <a href="#contact" class="btn btn-sm btn-primary" data-i18n="btn_contact">Contact</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 10. WHY CHOOSE VST                                            -->
+  <!-- ============================================================ -->
+  <section class="section section-navy" id="why">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-eyebrow light" data-i18n="why_eyebrow">Why VST</span>
+        <h2 class="section-title light" data-i18n="why_title">Why Choose VST</h2>
+      </div>
+      <div class="why-grid">
+        <div class="why-item reveal">
+          <div class="why-icon">✅</div>
+          <h3 data-i18n="why_1_t">Professional &amp; Reliable</h3>
+          <p data-i18n="why_1_d">Careful, professional work you can trust.</p>
+        </div>
+        <div class="why-item reveal">
+          <div class="why-icon">🔒</div>
+          <h3 data-i18n="why_2_t">Confidential</h3>
+          <p data-i18n="why_2_d">Your documents and information are handled with full confidentiality.</p>
+        </div>
+        <div class="why-item reveal">
+          <div class="why-icon">🌐</div>
+          <h3 data-i18n="why_3_t">Multilingual</h3>
+          <p data-i18n="why_3_d">We work across English, Portuguese and Spanish.</p>
+        </div>
+        <div class="why-item reveal">
+          <div class="why-icon">💙</div>
+          <h3 data-i18n="why_4_t">Personalized Care</h3>
+          <p data-i18n="why_4_d">Real people who care about helping you succeed.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 11. LEADERSHIP — VST CEOs                                     -->
+  <!-- Change CEO info here. Phone/WhatsApp appear ONLY after you    -->
+  <!-- fill the numbers in js/script.js (see CEO_PHONES).            -->
+  <!-- ============================================================ -->
+  <section class="section" id="leadership">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-eyebrow" data-i18n="lead_eyebrow">Leadership</span>
+        <h2 class="section-title" data-i18n="lead_title">Our Leadership</h2>
+        <p class="section-lead" data-i18n="lead_lead">Meet the people behind VST.</p>
+      </div>
+
+      <div class="ceo-grid">
+
+        <!-- CEO 1 — Romel Elroy Jeffrey (male CEO photo) -->
+        <article class="card ceo-card reveal">
+          <div class="ceo-photo">
+            <img src="images/ceos/dix-aponte.jpg" alt="Romel Elroy Jeffrey, CEO of VST" />
+          </div>
+          <div class="ceo-body">
+            <h3 class="ceo-name">Romel Elroy Jeffrey</h3>
+            <p class="ceo-role" data-i18n="lead_role">CEO</p>
+            <div class="ceo-contacts" data-ceo="dix">
+              <a class="ceo-link" href="mailto:dixaponte@gmail.com">
+                <span class="ceo-link-ic">✉️</span><span data-i18n="lead_email">Email</span>
+              </a>
+              <!-- Phone & WhatsApp buttons are injected by JS when a number is set -->
+            </div>
+          </div>
+        </article>
+
+        <!-- CEO 2 — Vanusa Penha da Silva (female CEO photo) -->
+        <article class="card ceo-card reveal">
+          <div class="ceo-photo">
+            <img src="images/ceos/vanusa-da-silva.jpg" alt="Vanusa Penha da Silva, CEO of VST" />
+          </div>
+          <div class="ceo-body">
+            <h3 class="ceo-name">Vanusa Penha da Silva</h3>
+            <p class="ceo-role" data-i18n="lead_role">CEO</p>
+            <div class="ceo-contacts" data-ceo="vanusa">
+              <a class="ceo-link" href="mailto:vstranslation2025@gmail.com">
+                <span class="ceo-link-ic">✉️</span><span data-i18n="lead_email">Email</span>
+              </a>
+              <!-- Phone & WhatsApp buttons are injected by JS when a number is set -->
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 12. OUR TEAM / EMPLOYEES                                      -->
+  <!-- Cards are generated from the "employees" array in            -->
+  <!-- js/script.js. Edit that array to add / remove people.        -->
+  <!-- ============================================================ -->
+  <section class="section section-alt" id="team">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-eyebrow" data-i18n="team_eyebrow">People</span>
+        <h2 class="section-title" data-i18n="team_title">Our Team</h2>
+        <p class="section-lead" data-i18n="team_lead">The dedicated professionals behind VST.</p>
+      </div>
+
+      <!-- Department filter buttons -->
+      <div class="filter-bar reveal" id="teamFilter" role="group" aria-label="Filter team by department">
+        <button type="button" class="filter-btn is-active" data-filter="all" data-i18n="team_f_all">All</button>
+        <button type="button" class="filter-btn" data-filter="Administration" data-i18n="team_f_admin">Administration</button>
+        <button type="button" class="filter-btn" data-filter="Translation" data-i18n="team_f_translation">Translation</button>
+        <button type="button" class="filter-btn" data-filter="Tourism" data-i18n="team_f_tourism">Tourism</button>
+        <button type="button" class="filter-btn" data-filter="Documentation" data-i18n="team_f_docs">Documentation</button>
+        <button type="button" class="filter-btn" data-filter="Customer Service" data-i18n="team_f_cs">Customer Service</button>
+        <button type="button" class="filter-btn" data-filter="Marketing" data-i18n="team_f_marketing">Marketing</button>
+      </div>
+
+      <!-- Team cards are inserted here by JavaScript -->
+      <div class="team-grid" id="teamGrid"></div>
+      <p class="team-empty" id="teamEmpty" hidden data-i18n="team_empty">No team members in this department yet.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- FAQ — Frequently Asked Questions                             -->
+  <!-- Edit questions/answers in js/script.js (faq_q* / faq_a*).    -->
+  <!-- To add a Q&A: copy one <div class="faq-item"> block and add  -->
+  <!-- new faq_qN / faq_aN keys in the three languages.             -->
+  <!-- ============================================================ -->
+  <section class="section" id="faq">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-eyebrow" data-i18n="faq_eyebrow">FAQ</span>
+        <h2 class="section-title" data-i18n="faq_title">Frequently Asked Questions</h2>
+        <p class="section-lead" data-i18n="faq_lead">Answers to the questions we hear most often.</p>
+      </div>
+
+      <div class="faq-list reveal">
+        <div class="faq-item">
+          <button type="button" class="faq-q" aria-expanded="false">
+            <span data-i18n="faq_q1">Which languages do you work with?</span>
+            <span class="faq-ic" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-a"><div><p data-i18n="faq_a1">We work with Portuguese, English and Spanish, helping you communicate across all three.</p></div></div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-q" aria-expanded="false">
+            <span data-i18n="faq_q2">How can I request a quote or more information?</span>
+            <span class="faq-ic" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-a"><div><p data-i18n="faq_a2">Use the contact form on this page, send us a message on WhatsApp, or email us. We will get back to you as soon as possible.</p></div></div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-q" aria-expanded="false">
+            <span data-i18n="faq_q3">What types of documents can you translate?</span>
+            <span class="faq-ic" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-a"><div><p data-i18n="faq_a3">We translate a wide range of documents, including personal, legal, business and immigration documents. Contact us with your specific case for details.</p></div></div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-q" aria-expanded="false">
+            <span data-i18n="faq_q4">How does Work Permit assistance work?</span>
+            <span class="faq-ic" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-a"><div><p data-i18n="faq_a4">We assist with organizing, translating and preparing the documentation involved in Work Permit applications. VST is a private company: we do not represent any government and do not guarantee approval.</p></div></div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-q" aria-expanded="false">
+            <span data-i18n="faq_q5">Do you also offer tourism services?</span>
+            <span class="faq-ic" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-a"><div><p data-i18n="faq_a5">Yes. We offer tourism assistance, destinations and personalized travel support. See the Tourism section or contact us for more information.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 13. CONTACT                                                  -->
+  <!-- Fill address / phone / whatsapp / hours in js/script.js      -->
+  <!-- (CONTACT_INFO). Empty fields are hidden automatically.       -->
+  <!-- ============================================================ -->
+  <section class="section section-alt" id="contact">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-eyebrow" data-i18n="contact_eyebrow">Get in Touch</span>
+        <h2 class="section-title" data-i18n="contact_title">Contact VST</h2>
+        <p class="section-lead" data-i18n="contact_lead">We would love to hear from you. Reach out through any channel below.</p>
+      </div>
+
+      <div class="contact-grid">
+
+        <!-- Contact details + quick buttons -->
+        <div class="contact-info reveal">
+          <ul class="contact-list" id="contactList">
+            <li class="contact-item" data-field="address">
+              <span class="contact-ic">📍</span>
+              <div>
+                <span class="contact-label" data-i18n="contact_address">Address</span>
+                <span class="contact-value" data-value="address"></span>
+              </div>
+            </li>
+            <li class="contact-item" data-field="phone">
+              <span class="contact-ic">📞</span>
+              <div>
+                <span class="contact-label" data-i18n="contact_phone">Main Phone</span>
+                <a class="contact-value" data-value="phone" href="#"></a>
+              </div>
+            </li>
+            <li class="contact-item" data-field="whatsapp">
+              <span class="contact-ic">💬</span>
+              <div>
+                <span class="contact-label" data-i18n="contact_whatsapp">WhatsApp</span>
+                <a class="contact-value" data-value="whatsapp" href="#" target="_blank" rel="noopener"></a>
+              </div>
+            </li>
+            <li class="contact-item" data-field="email">
+              <span class="contact-ic">✉️</span>
+              <div>
+                <span class="contact-label" data-i18n="contact_email">Main Email</span>
+                <a class="contact-value" data-value="email" href="mailto:vstranslation2025@gmail.com">vstranslation2025@gmail.com</a>
+              </div>
+            </li>
+            <li class="contact-item" data-field="hours">
+              <span class="contact-ic">🕐</span>
+              <div>
+                <span class="contact-label" data-i18n="contact_hours">Business Hours</span>
+                <span class="contact-value" data-value="hours"></span>
+              </div>
+            </li>
+          </ul>
+
+          <!-- Big contact buttons (hidden individually until info is provided) -->
+          <div class="contact-buttons" id="contactButtons">
+            <a class="btn btn-primary" id="btnCall" href="#" hidden data-i18n="contact_call">Call Us</a>
+            <a class="btn btn-outline" id="btnEmail" href="mailto:vstranslation2025@gmail.com" data-i18n="contact_emailus">Email Us</a>
+            <a class="btn btn-whatsapp" id="btnWhats" href="#" target="_blank" rel="noopener" hidden data-i18n="contact_whatsapp_btn">WhatsApp</a>
+            <a class="btn btn-ghost" id="btnDirections" href="#" target="_blank" rel="noopener" hidden data-i18n="contact_directions">Get Directions</a>
+          </div>
+
+          <!-- ===== GOOGLE MAP =====
+               The interactive map is built automatically from the address
+               (js/script.js -> renderMap), so it follows whatever address is
+               set in the admin "Contacts" page. No API key needed.
+               To pin an EXACT spot instead, replace the contents of #mapEmbed
+               with your own "Share > Embed a map" iframe from Google Maps. -->
+          <div class="map-embed" id="mapEmbed"></div>
+        </div>
+
+        <!-- Contact form -->
+        <div class="contact-form-wrap reveal">
+          <!--
+            This is a STATIC site (no backend), so the form does NOT send email
+            by itself. Two ready options:
+              A) WhatsApp  (DEFAULT): submitting opens WhatsApp with the message.
+                 Set the WhatsApp number in js/script.js (CONTACT_INFO.whatsapp).
+              B) Formspree / EmailJS: see comments in js/script.js (handleForm).
+          -->
+          <form id="contactForm" novalidate>
+            <div class="form-row">
+              <label for="f-name" data-i18n="form_name">Full Name</label>
+              <input type="text" id="f-name" name="name" required data-i18n-placeholder="form_name_ph" placeholder="Your full name" />
+              <small class="form-error" data-i18n="form_err_name">Please enter your name.</small>
+            </div>
+            <div class="form-row">
+              <label for="f-phone" data-i18n="form_phone">Phone Number</label>
+              <input type="tel" id="f-phone" name="phone" data-i18n-placeholder="form_phone_ph" placeholder="Your phone number" />
+            </div>
+            <div class="form-row">
+              <label for="f-email" data-i18n="form_email">Email</label>
+              <input type="email" id="f-email" name="email" required data-i18n-placeholder="form_email_ph" placeholder="you@example.com" />
+              <small class="form-error" data-i18n="form_err_email">Please enter a valid email.</small>
+            </div>
+            <div class="form-row">
+              <label for="f-lang" data-i18n="form_lang">Preferred Language</label>
+              <select id="f-lang" name="language">
+                <option value="English" data-i18n="form_lang_en">English</option>
+                <option value="Portuguese" data-i18n="form_lang_pt">Portuguese</option>
+                <option value="Spanish" data-i18n="form_lang_es">Spanish</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <label for="f-service" data-i18n="form_service">Service Needed</label>
+              <select id="f-service" name="service">
+                <option value="Translation" data-i18n="form_srv_translation">Translation</option>
+                <option value="Work Permit Assistance" data-i18n="form_srv_workpermit">Work Permit Assistance</option>
+                <option value="Tourism" data-i18n="form_srv_tourism">Tourism</option>
+                <option value="Documentation" data-i18n="form_srv_docs">Documentation</option>
+                <option value="Other Services" data-i18n="form_srv_other">Other Services</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <label for="f-message" data-i18n="form_message">Message</label>
+              <textarea id="f-message" name="message" rows="4" required data-i18n-placeholder="form_message_ph" placeholder="How can we help you?"></textarea>
+              <small class="form-error" data-i18n="form_err_message">Please enter a message.</small>
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg btn-block" data-i18n="form_submit">Send via WhatsApp</button>
+            <p class="form-hint" data-i18n="form_hint">Submitting opens WhatsApp with your message ready to send.</p>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 14. QR CODE                                                  -->
+  <!-- Replace images/qr-code.png with a QR that points to your     -->
+  <!-- FINAL HostGator domain (not a temporary/preview URL).        -->
+  <!-- ============================================================ -->
+  <section class="section" id="qr">
+    <div class="container qr-inner reveal">
+      <div class="qr-text">
+        <h2 class="section-title" data-i18n="qr_title">Connect with VST</h2>
+        <p class="section-lead" data-i18n="qr_text">Scan the QR Code to visit our website.</p>
+      </div>
+      <div class="qr-box">
+        <img src="images/qr-code.png" alt="QR Code linking to the VST website"
+             onerror="this.onerror=null;this.style.display='none';document.getElementById('qrFallback').hidden=false;" />
+        <div class="qr-fallback" id="qrFallback" hidden>
+          <span>[ FINAL WEBSITE QR CODE ]</span>
+          <small data-i18n="qr_placeholder">Add images/qr-code.png pointing to your final domain.</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ================================================================ -->
+<!-- FOOTER                                                           -->
+<!-- ================================================================ -->
+<footer class="site-footer">
+  <div class="container footer-grid">
+
+    <div class="footer-col footer-brand">
+      <img src="images/logo/vst-logo.png" alt="VST" class="footer-logo" />
+      <p data-i18n="footer_about">Professional translation, documentation, Work Permit assistance and tourism services connecting people and opportunities.</p>
+
+      <!-- Social media — a link is hidden automatically while its href is "#" -->
+      <div class="social" id="socialLinks">
+        <a href="#" data-social="instagram" aria-label="Instagram" title="Instagram">📷</a>
+        <a href="#" data-social="facebook" aria-label="Facebook" title="Facebook">📘</a>
+        <a href="#" data-social="tiktok" aria-label="TikTok" title="TikTok">🎵</a>
+        <a href="#" data-social="youtube" aria-label="YouTube" title="YouTube">▶️</a>
+        <a href="#" data-social="linkedin" aria-label="LinkedIn" title="LinkedIn">💼</a>
+        <a href="#" data-social="whatsapp" aria-label="WhatsApp" title="WhatsApp">💬</a>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <h4 data-i18n="footer_nav">Navigation</h4>
+      <ul>
+        <li><a href="#about" data-i18n="nav_about">About</a></li>
+        <li><a href="#services" data-i18n="nav_services">Services</a></li>
+        <li><a href="#tourism" data-i18n="nav_tourism">Tourism</a></li>
+        <li><a href="#leadership" data-i18n="nav_leadership">Leadership</a></li>
+        <li><a href="#team" data-i18n="nav_team">Our Team</a></li>
+        <li><a href="#faq" data-i18n="nav_faq">FAQ</a></li>
+        <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4 data-i18n="footer_services">Services</h4>
+      <ul>
+        <li><a href="#translation" data-i18n="service_translation_t">Translation Services</a></li>
+        <li><a href="#workpermit" data-i18n="service_workpermit_t">Work Permit Assistance</a></li>
+        <li><a href="#tourism" data-i18n="service_tourism_t">Tourism Services</a></li>
+        <li><a href="#other-services" data-i18n="service_other_t">Other Services</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4 data-i18n="footer_contact">Contact</h4>
+      <ul class="footer-contact">
+        <li data-field="address">📍 <span data-value="address"></span></li>
+        <li data-field="phone">📞 <span data-value="phone"></span></li>
+        <li>✉️ <a href="mailto:vstranslation2025@gmail.com">vstranslation2025@gmail.com</a></li>
+      </ul>
+      <div class="lang-switch lang-switch--footer" role="group" aria-label="Language">
+        <button type="button" class="lang-btn" data-lang="en">EN</button>
+        <span class="lang-sep">|</span>
+        <button type="button" class="lang-btn" data-lang="pt">PT</button>
+        <span class="lang-sep">|</span>
+        <button type="button" class="lang-btn" data-lang="es">ES</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="container footer-bottom-inner">
+      <p>&copy; <span id="year"></span> VST. <span data-i18n="footer_rights">All Rights Reserved.</span></p>
+      <ul class="footer-legal">
+        <li><a href="#" data-i18n="footer_privacy">Privacy Policy</a></li>
+        <li><a href="#" data-i18n="footer_terms">Terms of Use</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<!-- ================================================================ -->
+<!-- FLOATING WHATSAPP BUTTON  (bottom-right)                          -->
+<!-- Number is set in js/script.js (CONTACT_INFO.whatsapp).           -->
+<!-- ================================================================ -->
+<a href="#" class="whatsapp-float" id="whatsappFloat" target="_blank" rel="noopener" aria-label="Chat on WhatsApp" hidden>
+  <span class="wa-icon" aria-hidden="true">💬</span>
+</a>
+
+<!-- BACK-TO-TOP BUTTON -->
+<button type="button" class="back-to-top" id="backToTop" aria-label="Back to top" hidden>↑</button>
+
+<!-- ================================================================ -->
+<!-- LIGHTBOX (tourism gallery + translation portfolio)               -->
+<!-- ================================================================ -->
+<div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Image viewer">
+  <button type="button" class="lb-close" id="lbClose" aria-label="Close">&times;</button>
+  <button type="button" class="lb-nav lb-prev" id="lbPrev" aria-label="Previous image">&#10094;</button>
+  <figure class="lb-figure">
+    <img src="" alt="" id="lbImage" onerror="this.onerror=null;this.src='images/placeholder.svg';" />
+    <figcaption id="lbCaption"></figcaption>
+  </figure>
+  <button type="button" class="lb-nav lb-next" id="lbNext" aria-label="Next image">&#10095;</button>
+</div>
+
+<!-- ============ Scripts ============ -->
+<script src="js/script.js" defer></script>
+</body>
+</html>

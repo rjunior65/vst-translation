@@ -1,0 +1,4 @@
+Put tourism/destination photos here (landscape, e.g. 1200x900).
+The destination cards in index.html use:
+  destination-1.jpg, destination-2.jpg, destination-3.jpg
+Just drop files with those names (or edit the src in index.html).

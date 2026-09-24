@@ -1,0 +1,4 @@
+Put the company presentation video here as:
+  company-presentation.mp4
+Keep it reasonably small (recommended under ~50 MB) for fast loading.
+To use YouTube instead, see the VIDEO section comment in index.html.

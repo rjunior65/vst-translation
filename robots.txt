@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /includes/
+Disallow: /tools/
+Disallow: /sql/
+Disallow: /uploads/
+
+# When your final domain is live, update the line below:
+Sitemap: https://vst-translation.com/sitemap.xml

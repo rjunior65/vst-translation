@@ -1,0 +1,4 @@
+Put team member photos here (square photos look best, e.g. 600x600).
+Suggested names: employee-01.jpg, employee-02.jpg, ...
+Then reference them in js/script.js -> employees array -> "image".
+If a photo is missing, a placeholder is shown automatically.
