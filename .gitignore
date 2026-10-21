@@ -12,3 +12,10 @@ Thumbs.db
 Desktop.ini
 .DS_Store
 *.log
+
+# Media kept local only (lives on the server)
+images/team/*
+!images/team/_ADD_TEAM_PHOTOS_HERE.txt
+images/ceos/
+images/guesthouse/
+videos/guesthouse*.mp4
