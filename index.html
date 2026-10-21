@@ -8,7 +8,7 @@
 
   QUICK EDIT GUIDE (no coding needed for most of it):
     - Logo ............ images/logo/vst-logo.png  (replace the file)
-    - CEO photos ...... images/ceos/dix-aponte.jpg / vanusa-da-silva.jpg
+    - CEO photos ...... images/ceos/v4/romel-elroy-jeffrey.jpg / vanusa-penha-da-silva.jpg
     - Team members .... edit the "employees" array in js/script.js
     - Phones/emails ... search for  [ADD ...]  below and in js/script.js
     - Colors .......... css/style.css  ->  :root  (VST BRAND COLORS)
@@ -54,6 +54,8 @@
 
   <!-- ============ Styles ============ -->
   <link rel="stylesheet" href="css/style.css" />
+  <!-- Visual effects pack (glass, hero, hover). Remove this line + js/effects.js to disable. -->
+  <link rel="stylesheet" href="css/effects.css" />
 
   <!-- ============ Basic Organization schema markup ============ -->
   <script type="application/ld+json">
@@ -90,9 +92,11 @@
         <li><a href="#about" data-i18n="nav_about">About</a></li>
         <li><a href="#services" data-i18n="nav_services">Services</a></li>
         <li><a href="#tourism" data-i18n="nav_tourism">Tourism</a></li>
+        <li><a href="#guesthouse" data-i18n="nav_guesthouse">Guest House</a></li>
         <li><a href="#leadership" data-i18n="nav_leadership">Leadership</a></li>
         <li><a href="#team" data-i18n="nav_team">Our Team</a></li>
         <li><a href="#faq" data-i18n="nav_faq">FAQ</a></li>
+        <li><a href="#careers" class="nav-careers" data-i18n="nav_careers">Work With Us</a></li>
         <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
       </ul>
 
@@ -497,6 +501,64 @@
   </section>
 
   <!-- ============================================================ -->
+  <!-- 8b. GUEST HOUSE — D'Maida's Guest House (Paruima Village)     -->
+  <!-- Photos: images/guesthouse/   Video: videos/guesthouse-legendado.mp4    -->
+  <!-- ============================================================ -->
+  <section class="section" id="guesthouse">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-eyebrow" data-i18n="gh_eyebrow">Accommodation</span>
+        <h2 class="section-title" data-i18n="gh_title">Guest House</h2>
+        <p class="section-lead" data-i18n="gh_lead">Stay at D'Maida's Guest House (Ka'ran Dewuk) in Paruima Village, Upper Mazaruni — a comfortable base to explore the region.</p>
+      </div>
+
+      <div class="gh-layout">
+        <div class="gh-info card reveal">
+          <h3>D'Maida's Guest House <small>— Ka'ran Dewuk</small></h3>
+          <p class="destination-loc">📍 <span data-i18n="gh_loc">Paruima Village, Upper Mazaruni, Guyana</span></p>
+          <p class="gh-price"><strong>$7,000</strong> <span data-i18n="gh_per_night">/ per night</span></p>
+          <h4 data-i18n="gh_facilities">Facilities</h4>
+          <ul class="gh-list">
+            <li>🛏️ <span data-i18n="gh_f1">6 bedrooms</span></li>
+            <li>🚿 <span data-i18n="gh_f2">1 toilet and bath</span></li>
+            <li>🛋️ <span data-i18n="gh_f3">Living room</span></li>
+            <li>🍳 <span data-i18n="gh_f4">Kitchen</span></li>
+            <li>📶 <span data-i18n="gh_f5">Internet</span></li>
+          </ul>
+          <p class="gh-extra" data-i18n="gh_extra">Extra cost: meals and laundry.</p>
+          <p class="gh-phones">📞 <a href="tel:+5926973046">+592 697-3046</a> · <a href="tel:+5926717884">+592 671-7884</a></p>
+          <div class="card-actions">
+            <a href="https://wa.me/5926973046" target="_blank" rel="noopener" class="btn btn-sm btn-whatsapp">WhatsApp</a>
+            <a href="#contact" class="btn btn-sm btn-primary" data-i18n="gh_book">Book / Request Information</a>
+          </div>
+        </div>
+
+        <div class="gh-video reveal">
+          <video controls preload="none" poster="images/guesthouse/guesthouse-cover.jpg" playsinline>
+            <source src="videos/guesthouse-legendado.mp4" type="video/mp4" />
+            <span data-i18n="video_fallback">Your browser does not support the video tag.</span>
+          </video>
+        </div>
+      </div>
+
+      <div class="gallery-grid gh-gallery reveal">
+        <div class="gallery-item lightbox-item" data-caption="D'Maida's Guest House — Paruima Village">
+          <img src="images/guesthouse/guesthouse-1.jpg" alt="D'Maida's Guest House, Paruima Village, Guyana" loading="lazy"
+               onerror="this.onerror=null;this.src='images/placeholder.svg';" />
+        </div>
+        <div class="gallery-item lightbox-item" data-caption="D'Maida's Guest House — Paruima Village">
+          <img src="images/guesthouse/guesthouse-2.jpg" alt="Visitors in front of D'Maida's Guest House, Paruima Village" loading="lazy"
+               onerror="this.onerror=null;this.src='images/placeholder.svg';" />
+        </div>
+        <div class="gallery-item lightbox-item" data-caption="D'Maida's Guest House — Paruima Village">
+          <img src="images/guesthouse/guesthouse-3.jpg" alt="D'Maida's Guest House exterior, Paruima Village" loading="lazy"
+               onerror="this.onerror=null;this.src='images/placeholder.svg';" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
   <!-- OTHER SERVICES (flexible — duplicate a card to add more)      -->
   <!-- ============================================================ -->
   <section class="section" id="other-services">
@@ -587,7 +649,7 @@
         <!-- CEO 1 — Romel Elroy Jeffrey (male CEO photo) -->
         <article class="card ceo-card reveal">
           <div class="ceo-photo">
-            <img src="images/ceos/dix-aponte.jpg" alt="Romel Elroy Jeffrey, CEO of VST" />
+            <img src="images/ceos/v4/romel-elroy-jeffrey.jpg" alt="Romel Elroy Jeffrey, CEO of VST" />
           </div>
           <div class="ceo-body">
             <h3 class="ceo-name">Romel Elroy Jeffrey</h3>
@@ -604,7 +666,7 @@
         <!-- CEO 2 — Vanusa Penha da Silva (female CEO photo) -->
         <article class="card ceo-card reveal">
           <div class="ceo-photo">
-            <img src="images/ceos/vanusa-da-silva.jpg" alt="Vanusa Penha da Silva, CEO of VST" />
+            <img src="images/ceos/v4/vanusa-penha-da-silva.jpg" alt="Vanusa Penha da Silva, CEO of VST" />
           </div>
           <div class="ceo-body">
             <h3 class="ceo-name">Vanusa Penha da Silva</h3>
@@ -705,6 +767,78 @@
             <span class="faq-ic" aria-hidden="true">+</span>
           </button>
           <div class="faq-a"><div><p data-i18n="faq_a5">Yes. We offer tourism assistance, destinations and personalized travel support. See the Tourism section or contact us for more information.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 12b. WORK WITH US (careers call-to-action)                    -->
+  <!-- ============================================================ -->
+  <section class="section careers" id="careers">
+    <div class="container">
+      <div class="careers-box reveal">
+        <div class="careers-text">
+          <span class="careers-eyebrow" data-i18n="cr_eyebrow">Careers</span>
+          <h2 data-i18n="cr_title">Work With Us</h2>
+          <p data-i18n="cr_lead">Want to be part of the VST team? Send us your CV or get in touch — we'd love to hear from you.</p>
+        </div>
+        <div class="careers-actions">
+          <a class="careers-btn" href="mailto:vstranslation2025@gmail.com?subject=Work%20with%20VST">✉️ vstranslation2025@gmail.com</a>
+          <a class="careers-btn" href="tel:+5926330603">📞 +592-633-0603</a>
+        </div>
+      </div>
+
+      <!-- Job openings (from the database via api/jobs.php; fallback list in js/script.js)
+           + application form with CV upload (sent to api/apply.php). -->
+      <div class="careers-grid">
+        <div class="careers-jobs reveal">
+          <h3 data-i18n="cr_jobs_title">Open Positions</h3>
+          <ul class="jobs-list" id="jobsList"></ul>
+          <p class="jobs-note" data-i18n="cr_jobs_note">Don't see your role? Send a general application — we keep every CV on file.</p>
+        </div>
+
+        <div class="careers-form-wrap card reveal">
+          <h3 data-i18n="cr_form_title">Send Your CV</h3>
+          <form id="applyForm" novalidate enctype="multipart/form-data">
+            <div class="form-row">
+              <label for="a-job" data-i18n="cr_f_job">Position</label>
+              <select id="a-job" name="job_id"></select>
+            </div>
+            <div class="form-row">
+              <label for="a-name" data-i18n="form_name">Full Name</label>
+              <input type="text" id="a-name" name="name" required maxlength="160" autocomplete="name" data-i18n-placeholder="form_name_ph" placeholder="Your full name" />
+              <small class="form-error" data-i18n="form_err_name">Please enter your name.</small>
+            </div>
+            <div class="form-row two-cols">
+              <div>
+                <label for="a-email" data-i18n="form_email">Email</label>
+                <input type="email" id="a-email" name="email" required maxlength="190" autocomplete="email" placeholder="you@example.com" />
+                <small class="form-error" data-i18n="form_err_email">Please enter a valid email.</small>
+              </div>
+              <div>
+                <label for="a-phone" data-i18n="form_phone">Phone Number</label>
+                <input type="tel" id="a-phone" name="phone" maxlength="60" autocomplete="tel" data-i18n-placeholder="form_phone_ph" placeholder="Your phone number" />
+              </div>
+            </div>
+            <div class="form-row">
+              <label for="a-cv" data-i18n="cr_f_cv">CV / Résumé (PDF, DOC or DOCX — max 5 MB)</label>
+              <label class="file-drop" for="a-cv">
+                <span class="file-drop-ic">📎</span>
+                <span class="file-drop-text" id="cvName" data-i18n="cr_f_cv_pick">Click to choose your file</span>
+              </label>
+              <input type="file" id="a-cv" name="cv" required accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" />
+              <small class="form-error" id="cvError" data-i18n="cr_err_cv">Please attach your CV (PDF, DOC or DOCX, max 5 MB).</small>
+            </div>
+            <div class="form-row">
+              <label for="a-msg" data-i18n="cr_f_msg">Message (optional)</label>
+              <textarea id="a-msg" name="message" rows="3" maxlength="3000" data-i18n-placeholder="cr_f_msg_ph" placeholder="Tell us a little about yourself"></textarea>
+            </div>
+            <!-- anti-spam field: hidden from people, bots fill it -->
+            <div class="hp-field" aria-hidden="true"><label>Website <input type="text" name="website" tabindex="-1" autocomplete="off" /></label></div>
+            <button type="submit" class="btn btn-primary btn-lg btn-block" id="applyBtn" data-i18n="cr_submit">Send Application</button>
+            <p class="form-status" id="applyStatus" role="status" aria-live="polite"></p>
+          </form>
         </div>
       </div>
     </div>
@@ -889,9 +1023,11 @@
         <li><a href="#about" data-i18n="nav_about">About</a></li>
         <li><a href="#services" data-i18n="nav_services">Services</a></li>
         <li><a href="#tourism" data-i18n="nav_tourism">Tourism</a></li>
+        <li><a href="#guesthouse" data-i18n="nav_guesthouse">Guest House</a></li>
         <li><a href="#leadership" data-i18n="nav_leadership">Leadership</a></li>
         <li><a href="#team" data-i18n="nav_team">Our Team</a></li>
         <li><a href="#faq" data-i18n="nav_faq">FAQ</a></li>
+        <li><a href="#careers" class="nav-careers" data-i18n="nav_careers">Work With Us</a></li>
         <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
       </ul>
     </div>
@@ -960,5 +1096,6 @@
 
 <!-- ============ Scripts ============ -->
 <script src="js/script.js" defer></script>
+<script src="js/effects.js" defer></script>
 </body>
 </html>

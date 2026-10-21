@@ -6,6 +6,7 @@
       <a href="dashboard.php">Dashboard</a>
       <a href="employees.php">Team</a>
       <a href="destinations.php">Tourism</a>
+      <a href="jobs.php">Careers</a>
       <a href="settings.php">Contacts</a>
       <a href="logout.php" class="logout">Log out</a>
     </nav>

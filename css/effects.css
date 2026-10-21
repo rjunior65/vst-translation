@@ -1,0 +1,256 @@
+/* =================================================================
+   VST — VISUAL EFFECTS PACK  (glassmorphism · hero · hover states)
+   Loaded AFTER style.css. Purely additive: to turn every effect off,
+   remove the <link> to this file and the <script> for js/effects.js.
+   ================================================================= */
+
+:root {
+  --glass-bg:      rgba(255, 255, 255, .10);
+  --glass-bg-lt:   rgba(255, 255, 255, .72);
+  --glass-border:  rgba(255, 255, 255, .28);
+  --glass-blur:    16px;
+  --glass-shadow:  0 10px 40px rgba(8, 24, 48, .28);
+  --fx-yellow:     #ffcf33;
+  --fx-teal:       #1590b8;
+}
+
+/* -----------------------------------------------------------------
+   1. GLASS HEADER
+   The blur lives on a pseudo-element: putting backdrop-filter on
+   .site-header itself would break the fixed mobile menu.
+   ----------------------------------------------------------------- */
+.site-header { background: var(--glass-bg-lt); }
+.site-header::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  -webkit-backdrop-filter: blur(18px) saturate(170%);
+          backdrop-filter: blur(18px) saturate(170%);
+}
+@media (max-width: 1280px) {
+  /* the slide-in mobile menu stays solid for readability */
+  .main-nav { background: rgba(255, 255, 255, .96); }
+}
+
+/* -----------------------------------------------------------------
+   2. HERO — animated aurora, mouse spotlight, glass panel & visual
+   ----------------------------------------------------------------- */
+.hero { padding: 110px 0 100px; isolation: isolate; }
+
+/* Moving colour blobs (brand red + blue + violet) */
+.hero-bg::before {
+  content: ""; position: absolute; inset: -20%;
+  background:
+    radial-gradient(38% 42% at 20% 30%, rgba(198, 40, 40, .55), transparent 70%),
+    radial-gradient(34% 40% at 80% 20%, rgba(54, 120, 230, .55), transparent 70%),
+    radial-gradient(30% 36% at 65% 85%, rgba(140, 70, 210, .40), transparent 70%);
+  filter: blur(40px);
+  animation: fx-aurora 18s ease-in-out infinite alternate;
+}
+@keyframes fx-aurora {
+  0%   { transform: translate3d(0, 0, 0) rotate(0deg) scale(1); }
+  50%  { transform: translate3d(4%, -3%, 0) rotate(8deg) scale(1.08); }
+  100% { transform: translate3d(-3%, 4%, 0) rotate(-6deg) scale(1.02); }
+}
+
+/* Spotlight that follows the mouse (position set by effects.js) */
+.hero::after {
+  content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background: radial-gradient(420px circle at var(--mx, 70%) var(--my, 30%), rgba(255, 255, 255, .10), transparent 60%);
+  transition: background .1s linear;
+}
+
+/* Title: soft glow + gradient highlight on the text */
+.hero-title {
+  background: linear-gradient(100deg, #ffffff 0%, #ffffff 45%, #ffd1d1 70%, #bcd4ff 100%);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 4px 24px rgba(120, 160, 255, .25));
+}
+.hero-eyebrow {
+  padding: .45rem 1rem; border-radius: 999px; color: #fff;
+  background: var(--glass-bg); border: 1px solid var(--glass-border);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+}
+
+/* Glass buttons */
+.hero .btn-outline {
+  background: rgba(255, 255, 255, .08); border-color: var(--glass-border);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+}
+.hero .btn-primary { box-shadow: 0 8px 30px rgba(198, 40, 40, .55), inset 0 1px 0 rgba(255, 255, 255, .25); }
+.hero .btn-primary:hover { box-shadow: 0 12px 40px rgba(198, 40, 40, .7), inset 0 1px 0 rgba(255, 255, 255, .25); }
+
+/* Badges become glass pills */
+.hero-badges { gap: .7rem; }
+.hero-badges li {
+  padding: .5rem .95rem; border-radius: 999px; color: #fff;
+  background: var(--glass-bg); border: 1px solid var(--glass-border);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  transition: transform .3s var(--ease), background .3s;
+}
+.hero-badges li:hover { transform: translateY(-3px); background: rgba(255, 255, 255, .18); }
+
+/* Right-side visual (injected by effects.js): glowing globe + floating glass chips */
+.fx-hero-visual { display: none; }
+@media (min-width: 1024px) {
+  .hero-inner { display: grid; grid-template-columns: 1.15fr .85fr; align-items: center; gap: 30px; }
+  .fx-hero-visual { display: block; position: relative; height: 440px; }
+}
+.fx-globe {
+  position: absolute; inset: 50% auto auto 50%; width: 300px; height: 300px; transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 35% 30%, rgba(255, 255, 255, .55), transparent 28%),
+    radial-gradient(circle at 50% 50%, rgba(80, 140, 255, .55), rgba(198, 40, 40, .35) 60%, transparent 72%);
+  box-shadow: 0 0 80px rgba(90, 150, 255, .45), 0 0 160px rgba(198, 40, 40, .25), inset 0 0 60px rgba(255, 255, 255, .15);
+  animation: fx-pulse 6s ease-in-out infinite;
+}
+.fx-globe::before, .fx-globe::after {
+  content: ""; position: absolute; inset: -14%; border-radius: 50%;
+  border: 1px dashed rgba(255, 255, 255, .35);
+  animation: fx-spin 40s linear infinite;
+}
+.fx-globe::after { inset: 8%; border-style: dotted; border-color: rgba(255, 255, 255, .25); animation-duration: 26s; animation-direction: reverse; }
+@keyframes fx-spin  { to { transform: rotate(360deg); } }
+@keyframes fx-pulse { 0%, 100% { transform: translate(-50%, -50%) scale(1); } 50% { transform: translate(-50%, -50%) scale(1.04); } }
+
+.fx-chip {
+  position: absolute; display: flex; align-items: center; gap: .6rem;
+  padding: .7rem 1rem; border-radius: 16px; color: #fff; font-weight: 600; font-size: .92rem; white-space: nowrap;
+  background: rgba(255, 255, 255, .12); border: 1px solid var(--glass-border);
+  -webkit-backdrop-filter: blur(14px) saturate(150%); backdrop-filter: blur(14px) saturate(150%);
+  box-shadow: var(--glass-shadow);
+  animation: fx-float 7s ease-in-out infinite;
+}
+.fx-chip b {
+  display: grid; place-items: center; width: 34px; height: 34px; border-radius: 10px; font-size: .8rem; letter-spacing: .5px;
+  background: linear-gradient(135deg, var(--vst-red), #ff7a59); box-shadow: 0 4px 14px rgba(198, 40, 40, .45);
+}
+.fx-chip:nth-child(3) b { background: linear-gradient(135deg, #2f6fd6, #5fb0ff); box-shadow: 0 4px 14px rgba(47, 111, 214, .45); }
+.fx-chip:nth-child(4) b { background: linear-gradient(135deg, #e2a400, var(--fx-yellow)); box-shadow: 0 4px 14px rgba(226, 164, 0, .45); color: #3a2a00; }
+.fx-chip:nth-child(2) { top: 8%;  left: 0;    animation-delay: 0s; }
+.fx-chip:nth-child(3) { top: 44%; right: -2%; animation-delay: -2.3s; }
+.fx-chip:nth-child(4) { bottom: 6%; left: 10%; animation-delay: -4.6s; }
+@keyframes fx-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
+
+/* -----------------------------------------------------------------
+   3. GLASS PANELS on dark sections
+   ----------------------------------------------------------------- */
+.section-navy { position: relative; overflow: hidden; isolation: isolate; }
+.section-navy::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(40% 50% at 10% 0%, rgba(198, 40, 40, .35), transparent 70%),
+    radial-gradient(40% 50% at 95% 100%, rgba(80, 140, 255, .35), transparent 70%);
+}
+.why-item {
+  border-radius: 20px; padding: 30px 22px;
+  background: var(--glass-bg); border: 1px solid var(--glass-border);
+  -webkit-backdrop-filter: blur(var(--glass-blur)); backdrop-filter: blur(var(--glass-blur));
+  box-shadow: var(--glass-shadow);
+  transition: transform .4s var(--ease), background .4s, box-shadow .4s;
+}
+.why-item:hover { transform: translateY(-8px); background: rgba(255, 255, 255, .16); box-shadow: 0 20px 50px rgba(0, 0, 0, .35); }
+
+/* Careers box: glass sheen sweeping across */
+.careers-box { position: relative; overflow: hidden; }
+.careers-box::after {
+  content: ""; position: absolute; top: 0; left: -60%; width: 40%; height: 100%; pointer-events: none;
+  background: linear-gradient(105deg, transparent, rgba(255, 255, 255, .35), transparent);
+  transform: skewX(-18deg); animation: fx-sheen 5s ease-in-out infinite;
+}
+@keyframes fx-sheen { 0%, 60% { left: -60%; } 100% { left: 130%; } }
+.careers-btn { -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+
+/* -----------------------------------------------------------------
+   4. HOVER STATES — colourful tilted cards (Mission / Vision / Values)
+   Uses the individual `rotate` / `scale` properties so it never fights
+   with the reveal-on-scroll `transform`.
+   ----------------------------------------------------------------- */
+.mvv-grid { perspective: 1000px; }
+.mvv-card {
+  border: 0; border-radius: 26px; color: #fff;
+  transition: rotate .45s var(--ease), scale .45s var(--ease), transform .45s var(--ease), box-shadow .45s var(--ease), opacity .7s var(--ease);
+}
+.mvv-card h3, .mvv-card p { color: inherit !important; }
+.mvv-card p { opacity: .92; }
+.mvv-card:nth-child(1) { background: linear-gradient(150deg, #ff7a1a, #e65100); rotate: -4deg; box-shadow: 0 16px 34px rgba(230, 81, 0, .35); }
+.mvv-card:nth-child(2) { background: linear-gradient(150deg, #1aa3cf, #0d6f99); rotate: 3deg;  box-shadow: 0 16px 34px rgba(13, 111, 153, .35); }
+.mvv-card:nth-child(3) { background: linear-gradient(150deg, #ffd84d, #ffb800); rotate: -2deg; box-shadow: 0 16px 34px rgba(255, 184, 0, .35); color: #3b2b00; }
+.mvv-card:hover { rotate: 0deg; scale: 1.06; z-index: 2; box-shadow: 0 26px 50px rgba(12, 39, 72, .30); }
+.mvv-icon {
+  width: 58px; height: 58px; display: grid; place-items: center; border-radius: 16px; font-size: 1.8rem;
+  background: rgba(255, 255, 255, .25); border: 1px solid rgba(255, 255, 255, .4);
+}
+@media (min-width: 860px) { .mvv-card .mvv-icon { margin-left: 0; } }
+@media (max-width: 859px) {
+  .mvv-icon { margin: 0 auto .6rem; }
+  .mvv-card:nth-child(n) { rotate: 0deg; }
+  .mvv-card:nth-child(1) { rotate: -1.5deg; }
+  .mvv-card:nth-child(2) { rotate: 1.5deg; }
+}
+
+/* -----------------------------------------------------------------
+   5. HOVER STATES — 3D tilt + light glare on cards (effects.js)
+   ----------------------------------------------------------------- */
+.fx-tilt { position: relative; transform-style: preserve-3d; will-change: transform; }
+.fx-tilt::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0;
+  background: radial-gradient(360px circle at var(--gx, 50%) var(--gy, 50%), rgba(255, 255, 255, .45), transparent 45%);
+  transition: opacity .3s;
+  z-index: 3;
+}
+.fx-tilt:hover::after { opacity: 1; }
+.fx-tilt.fx-moving { transition: transform .08s linear, box-shadow .3s var(--ease) !important; }
+
+/* Gradient border glow on service cards */
+.service-card { position: relative; }
+.service-card::before {
+  content: ""; position: absolute; inset: -1px; border-radius: inherit; padding: 1px; pointer-events: none;
+  background: linear-gradient(135deg, var(--vst-red), #6aa8ff, var(--vst-red));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  opacity: 0; transition: opacity .35s;
+}
+.service-card:hover::before { opacity: 1; }
+.service-icon { transition: transform .45s var(--ease), background .45s, box-shadow .45s; }
+.service-card:hover .service-icon {
+  transform: rotate(-8deg) scale(1.12);
+  background: linear-gradient(145deg, #ffe3e3, #e6efff); box-shadow: 0 10px 24px rgba(198, 40, 40, .2);
+}
+
+/* Gallery: zoom + caption-style dark fade */
+.gallery-item { position: relative; overflow: hidden; }
+.gallery-item img { transition: transform .6s var(--ease), filter .6s var(--ease); }
+.gallery-item::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0;
+  background: linear-gradient(to top, rgba(12, 39, 72, .55), transparent 55%); transition: opacity .4s;
+}
+.gallery-item:hover img { transform: scale(1.08); filter: saturate(1.15); }
+.gallery-item:hover::after { opacity: 1; }
+
+/* Team & CEO photos: gentle zoom on hover */
+.team-photo img, .ceo-photo img { transition: transform .6s var(--ease); }
+.team-card:hover .team-photo img, .ceo-card:hover .ceo-photo img { transform: scale(1.06); }
+
+/* Buttons: shine sweep on hover */
+.btn { position: relative; overflow: hidden; }
+.btn::after {
+  content: ""; position: absolute; top: 0; left: -75%; width: 50%; height: 100%; pointer-events: none;
+  background: linear-gradient(105deg, transparent, rgba(255, 255, 255, .35), transparent);
+  transform: skewX(-20deg); transition: left .6s var(--ease);
+}
+.btn:hover::after { left: 130%; }
+
+/* -----------------------------------------------------------------
+   6. ACCESSIBILITY — no motion for people who asked for less motion
+   ----------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .hero-bg::before, .fx-globe, .fx-globe::before, .fx-globe::after, .fx-chip, .careers-box::after { animation: none !important; }
+  .mvv-card:nth-child(n) { rotate: 0deg; }
+  .mvv-card:hover { scale: 1; }
+}
+
+/* Browsers without backdrop-filter: make glass slightly more opaque */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .site-header { background: rgba(255, 255, 255, .97); }
+  .why-item, .fx-chip, .hero-badges li, .hero-eyebrow { background: rgba(255, 255, 255, .16); }
+}

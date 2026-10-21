@@ -77,7 +77,7 @@ const employees = [
     phone:       "+592 673 5572",
     email:       "",
     description: "",
-    image:       "images/team/fayan-abrams.jpg"
+    image:       "images/team/v4/fayan-abrams.jpg"
   },
   {
     name:        "Gimel Carr",
@@ -86,7 +86,7 @@ const employees = [
     phone:       "+592 686 0040",
     email:       "",
     description: "",
-    image:       "images/team/gimel-carr.jpg"
+    image:       "images/team/v4/gimel-carr.jpg"
   },
   {
     name:        "Gildineys Castillo",
@@ -95,7 +95,7 @@ const employees = [
     phone:       "+592 6973569",
     email:       "",
     description: "",
-    image:       "images/team/gildineys-castillo.jpg"
+    image:       "images/team/v4/gildineys-castillo.jpg"
   },
   {
     name:        "Rilda Silva de Oliveira Marques",
@@ -104,7 +104,7 @@ const employees = [
     phone:       "+592 6636984",
     email:       "",
     description: "",
-    image:       "images/team/rilda-silva-de-oliveira-marques.jpg"
+    image:       "images/team/v4/rilda-silva-de-oliveira-marques.jpg"
   },
   {
     name:        "Rakesh Rafael Carmelito Edmond",
@@ -113,7 +113,7 @@ const employees = [
     phone:       "",
     email:       "",
     description: "",
-    image:       "images/team/rakesh-rafael-edmond.jpg"
+    image:       "images/team/v4/rakesh-rafael-edmond.jpg"
   },
   {
     name:        "Rakesh Cortney Edmond Junior",
@@ -122,7 +122,7 @@ const employees = [
     phone:       "",
     email:       "",
     description: "",
-    image:       "images/team/rakesh-cortney-edmond-junior.jpg"
+    image:       "images/team/v4/rakesh-cortney-edmond-junior.jpg"
   },
   {
     name:        "Yara Karoline Silva",
@@ -131,7 +131,7 @@ const employees = [
     phone:       "",
     email:       "",
     description: "",
-    image:       "images/team/yara-karoline-silva.jpg"
+    image:       "images/team/v4/yara-karoline-silva.jpg"
   },
   {
     name:        "Yoanna Veliz Tortolo",
@@ -140,7 +140,7 @@ const employees = [
     phone:       "",
     email:       "",
     description: "",
-    image:       "images/team/yoanna-veliz-tortolo.jpg"
+    image:       "images/team/v4/yoanna-veliz-tortolo.jpg"
   },
   {
     name:        "Yasmim Moreira Costa",
@@ -149,7 +149,7 @@ const employees = [
     phone:       "",
     email:       "",
     description: "",
-    image:       "images/team/yasmim-silva-moreira.jpg"
+    image:       "images/team/v4/yasmim-silva-moreira.jpg"
   },
   {
     name:        "Gemma Anita Webster",
@@ -158,7 +158,7 @@ const employees = [
     phone:       "",
     email:       "",
     description: "",
-    image:       "images/team/gemma-anita-webster.jpg"
+    image:       "images/team/v4/gemma-anita-webster.jpg"
   },
   {
     name:        "Carmelito Clementino da Silva",
@@ -167,16 +167,25 @@ const employees = [
     phone:       "",
     email:       "",
     description: "",
-    image:       "images/team/carmelito-clementino-da-silva.jpg"
+    image:       "images/team/v4/carmelito-clementino-da-silva.jpg"
   },
   {
     name:        "Dixan Preval Aponte",
-    position:    "Immigration Services Coordinator / Translator",
-    department:  "Translation",             // change if needed
+    position:    "Digital Administrator & General Coordinator",
+    department:  "Administration",
     phone:       "+592 6638064",
     email:       "",
     description: "",
-    image:       "images/team/dixan-preval-aponte.jpg"
+    image:       "images/team/v4/dixan-preval-aponte.jpg"
+  },
+  {
+    name:        "Diana Andries",
+    position:    "Office Assistant",
+    department:  "Administration",
+    phone:       "",
+    email:       "",
+    description: "",
+    image:       "images/team/v4/diana-andries.jpg"
   }
   // ,{
   //   name: "New Person", position: "Role", department: "Customer Service",
@@ -200,9 +209,9 @@ const POSITION_I18N = {
   "Marketing":               { pt: "Marketing",                    es: "Marketing" },
   "Private Driver":          { pt: "Motorista Particular",         es: "Chofer Privado" },
   "Consultation":            { pt: "Consultoria",                  es: "Consultoría" },
-  "Immigration Services Coordinator / Translator": {
-    pt: "Coordenador de Serviços de Imigração / Tradutor",
-    es: "Coordinador de Servicios de Inmigración / Traductor"
+  "Digital Administrator & General Coordinator": {
+    pt: "Administrador Digital e Coordenador Geral",
+    es: "Administrador Digital y Coordinador General"
   },
   "General Manager & Accountant": {
     pt: "Gerente Geral e Contadora",
@@ -223,6 +232,19 @@ const POSITION_I18N = {
 };
 
 
+// =======================================================================
+//  JOB OPENINGS ("Work With Us")
+//  -------------------------------------------------------------------
+//  On the live site these come from the database (Admin > Careers).
+//  This list is only shown if the database is unavailable.
+// =======================================================================
+const JOBS = [
+  { id: 0, titles: { en: "Bus Driver",          pt: "Motorista de Ônibus",      es: "Conductor de Autobús" } },
+  { id: 0, titles: { en: "Office Assistant",    pt: "Assistente de Escritório", es: "Asistente de Oficina" } },
+  { id: 0, titles: { en: "Marketing Assistant", pt: "Assistente de Marketing",  es: "Asistente de Marketing" } }
+];
+
+
 /* =================================================================
    2) TRANSLATIONS  (English = default)
    -----------------------------------------------------------------
@@ -236,6 +258,8 @@ const translations = {
     // Navigation
     nav_home: "Home", nav_about: "About", nav_services: "Services", nav_tourism: "Tourism",
     nav_leadership: "Leadership", nav_team: "Our Team", nav_faq: "FAQ", nav_contact: "Contact", nav_cta: "Contact Us",
+    nav_guesthouse: "Guest House", nav_careers: "Work With Us", gh_eyebrow: "Accommodation", gh_title: "Guest House", gh_lead: "Stay at D'Maida's Guest House (Ka'ran Dewuk) in Paruima Village, Upper Mazaruni — a comfortable base to explore the region.", gh_loc: "Paruima Village, Upper Mazaruni, Guyana", gh_per_night: "/ per night", gh_facilities: "Facilities", gh_f1: "6 bedrooms", gh_f2: "1 toilet and bath", gh_f3: "Living room", gh_f4: "Kitchen", gh_f5: "Internet", gh_extra: "Extra cost: meals and laundry.", gh_book: "Book / Request Information", cr_eyebrow: "Careers", cr_title: "Work With Us", cr_lead: "Want to be part of the VST team? Send us your CV or get in touch — we'd love to hear from you.",
+    cr_jobs_title: "Open Positions", cr_jobs_note: "Don't see your role? Send a general application — we keep every CV on file.", cr_form_title: "Send Your CV", cr_f_job: "Position", cr_general: "General application (other roles)", cr_f_cv: "CV / Résumé (PDF, DOC or DOCX — max 5 MB)", cr_f_cv_pick: "Click to choose your file", cr_err_cv: "Please attach your CV (PDF, DOC or DOCX, max 5 MB).", cr_f_msg: "Message (optional)", cr_f_msg_ph: "Tell us a little about yourself", cr_submit: "Send Application", cr_apply: "Apply", cr_sending: "Sending…", cr_ok: "Thank you! Your application was received. We will contact you soon.", cr_err_limit: "Too many attempts. Please try again later.", cr_err_generic: "Sorry, we couldn't send your application. Please try again or email your CV to vstranslation2025@gmail.com.",
     skip_link: "Skip to main content",
     // Hero
     hero_eyebrow: "Translation · Tourism · Professional Services",
@@ -353,6 +377,8 @@ const translations = {
   pt: {
     nav_home: "Início", nav_about: "Sobre", nav_services: "Serviços", nav_tourism: "Turismo",
     nav_leadership: "Liderança", nav_team: "Nossa Equipe", nav_faq: "FAQ", nav_contact: "Contato", nav_cta: "Fale Conosco",
+    nav_guesthouse: "Hospedagem", nav_careers: "Trabalhe Conosco", gh_eyebrow: "Hospedagem", gh_title: "Guest House", gh_lead: "Hospede-se na D'Maida's Guest House (Ka'ran Dewuk), na Vila de Paruima, Alto Mazaruni — uma base confortável para explorar a região.", gh_loc: "Vila de Paruima, Alto Mazaruni, Guiana", gh_per_night: "/ por noite", gh_facilities: "Estrutura", gh_f1: "6 quartos", gh_f2: "1 banheiro com chuveiro", gh_f3: "Sala de estar", gh_f4: "Cozinha", gh_f5: "Internet", gh_extra: "Custo adicional: refeições e lavanderia.", gh_book: "Reservar / Solicitar Informações", cr_eyebrow: "Carreiras", cr_title: "Trabalhe Conosco", cr_lead: "Quer fazer parte da equipe VST? Envie seu currículo ou entre em contato — queremos conhecer você.",
+    cr_jobs_title: "Vagas Disponíveis", cr_jobs_note: "Não encontrou sua vaga? Envie uma candidatura geral — guardamos todos os currículos.", cr_form_title: "Envie seu Currículo", cr_f_job: "Vaga", cr_general: "Candidatura geral (outras áreas)", cr_f_cv: "Currículo (PDF, DOC ou DOCX — máx. 5 MB)", cr_f_cv_pick: "Clique para escolher o arquivo", cr_err_cv: "Anexe seu currículo (PDF, DOC ou DOCX, máx. 5 MB).", cr_f_msg: "Mensagem (opcional)", cr_f_msg_ph: "Conte um pouco sobre você", cr_submit: "Enviar Candidatura", cr_apply: "Candidatar-se", cr_sending: "Enviando…", cr_ok: "Obrigado! Recebemos sua candidatura. Entraremos em contato em breve.", cr_err_limit: "Muitas tentativas. Tente novamente mais tarde.", cr_err_generic: "Desculpe, não foi possível enviar sua candidatura. Tente novamente ou envie o currículo para vstranslation2025@gmail.com.",
     skip_link: "Pular para o conteúdo",
     hero_eyebrow: "Tradução · Turismo · Serviços Profissionais",
     hero_title: "Conectando Pessoas, Idiomas e Oportunidades",
@@ -455,6 +481,8 @@ const translations = {
   es: {
     nav_home: "Inicio", nav_about: "Nosotros", nav_services: "Servicios", nav_tourism: "Turismo",
     nav_leadership: "Liderazgo", nav_team: "Nuestro Equipo", nav_faq: "FAQ", nav_contact: "Contacto", nav_cta: "Contáctanos",
+    nav_guesthouse: "Hospedaje", nav_careers: "Trabaja con Nosotros", gh_eyebrow: "Hospedaje", gh_title: "Guest House", gh_lead: "Hospédate en D'Maida's Guest House (Ka'ran Dewuk), en la Aldea de Paruima, Alto Mazaruni — una base cómoda para explorar la región.", gh_loc: "Aldea de Paruima, Alto Mazaruni, Guyana", gh_per_night: "/ por noche", gh_facilities: "Instalaciones", gh_f1: "6 habitaciones", gh_f2: "1 baño con ducha", gh_f3: "Sala de estar", gh_f4: "Cocina", gh_f5: "Internet", gh_extra: "Costo adicional: comidas y lavandería.", gh_book: "Reservar / Solicitar Información", cr_eyebrow: "Empleo", cr_title: "Trabaja con Nosotros", cr_lead: "¿Quieres formar parte del equipo VST? Envíanos tu currículum o contáctanos — nos encantaría conocerte.",
+    cr_jobs_title: "Vacantes Disponibles", cr_jobs_note: "¿No encuentras tu puesto? Envía una postulación general — guardamos todos los currículums.", cr_form_title: "Envía tu Currículum", cr_f_job: "Puesto", cr_general: "Postulación general (otras áreas)", cr_f_cv: "Currículum (PDF, DOC o DOCX — máx. 5 MB)", cr_f_cv_pick: "Haz clic para elegir el archivo", cr_err_cv: "Adjunta tu currículum (PDF, DOC o DOCX, máx. 5 MB).", cr_f_msg: "Mensaje (opcional)", cr_f_msg_ph: "Cuéntanos un poco sobre ti", cr_submit: "Enviar Postulación", cr_apply: "Postularme", cr_sending: "Enviando…", cr_ok: "¡Gracias! Recibimos tu postulación. Te contactaremos pronto.", cr_err_limit: "Demasiados intentos. Inténtalo más tarde.", cr_err_generic: "Lo sentimos, no pudimos enviar tu postulación. Inténtalo de nuevo o envía tu currículum a vstranslation2025@gmail.com.",
     skip_link: "Saltar al contenido",
     hero_eyebrow: "Traducción · Turismo · Servicios Profesionales",
     hero_title: "Conectando Personas, Idiomas y Oportunidades",
@@ -609,6 +637,8 @@ const WA_GREETING = {
     if (activeDestinations) renderDestinations(activeDestinations);
     // Refresh WhatsApp links (greeting text changes with language)
     refreshWhatsApp();
+    // Job openings + position dropdown follow the language
+    renderJobs();
 
     localStorage.setItem("vst_lang", lang);
   }
@@ -917,6 +947,115 @@ const WA_GREETING = {
     if (toTop) toTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
   }
 
+  /* ---------------- Careers: job openings + CV application ---------------- */
+  let activeJobs = JOBS;
+  const jobTitle = (job) => (job.titles && (job.titles[currentLang] || job.titles.en)) || "";
+
+  function renderJobs() {
+    const list = $("#jobsList");
+    const select = $("#a-job");
+    if (!list || !select) return;
+    const chosen = select.value;
+
+    list.innerHTML = "";
+    activeJobs.forEach((job, i) => {
+      const li = document.createElement("li");
+      li.className = "job-item";
+      const title = document.createElement("span");
+      title.className = "job-title";
+      title.textContent = jobTitle(job);
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "btn btn-sm btn-primary";
+      btn.textContent = t("cr_apply");
+      btn.addEventListener("click", () => {
+        select.value = String(i);
+        $(".careers-form-wrap").scrollIntoView({ behavior: "smooth", block: "start" });
+        $("#a-name").focus({ preventScroll: true });
+      });
+      li.append(title, btn);
+      const desc = job.descriptions && (job.descriptions[currentLang] || job.descriptions.en);
+      if (desc) {
+        const p = document.createElement("p");
+        p.className = "job-desc";
+        p.textContent = desc;
+        li.appendChild(p);
+      }
+      list.appendChild(li);
+    });
+
+    select.innerHTML = "";
+    activeJobs.forEach((job, i) => select.add(new Option(jobTitle(job), String(i))));
+    select.add(new Option(t("cr_general"), "general"));
+    if (chosen && select.querySelector('option[value="' + chosen + '"]')) select.value = chosen;
+  }
+
+  async function loadJobsFromApi() {
+    try {
+      const res = await fetch("api/jobs.php", { cache: "no-store" });
+      if (!res.ok) return;
+      const data = await res.json();
+      if (Array.isArray(data)) { activeJobs = data; renderJobs(); }
+    } catch (err) { /* keep the built-in list */ }
+  }
+
+  function initApplyForm() {
+    const form = $("#applyForm");
+    if (!form) return;
+    const cv = $("#a-cv");
+    const status = $("#applyStatus");
+    const btn = $("#applyBtn");
+    const MAX = 5 * 1024 * 1024;
+    const okExt = /\.(pdf|docx?)$/i;
+
+    const setInvalid = (el, bad) => el.closest(".two-cols > div, .form-row").classList.toggle("invalid", bad);
+    const cvValid = () => cv.files.length === 1 && okExt.test(cv.files[0].name) && cv.files[0].size <= MAX;
+
+    cv.addEventListener("change", () => {
+      $("#cvName").textContent = cv.files.length ? cv.files[0].name : t("cr_f_cv_pick");
+      setInvalid(cv, cv.files.length > 0 && !cvValid());
+    });
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const name = $("#a-name"), email = $("#a-email");
+      const badName = name.value.trim() === "";
+      const badEmail = !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim());
+      const badCv = !cvValid();
+      setInvalid(name, badName); setInvalid(email, badEmail); setInvalid(cv, badCv);
+      if (badName || badEmail || badCv) return;
+
+      const fd = new FormData(form);
+      const sel = $("#a-job").value;
+      const job = activeJobs[Number(sel)];
+      fd.set("job_id", sel !== "general" && job && job.id ? String(job.id) : "0");
+
+      btn.disabled = true;
+      status.className = "form-status";
+      status.textContent = t("cr_sending");
+      try {
+        const res = await fetch("api/apply.php", { method: "POST", body: fd });
+        const data = await res.json().catch(() => ({}));
+        if (res.ok && data.ok) {
+          form.reset();
+          $("#cvName").textContent = t("cr_f_cv_pick");
+          status.className = "form-status ok";
+          status.textContent = t("cr_ok");
+        } else {
+          status.className = "form-status err";
+          status.textContent = data.error === "limit" ? t("cr_err_limit")
+            : (data.error && data.error.indexOf("cv_") === 0) ? t("cr_err_cv")
+            : t("cr_err_generic");
+        }
+      } catch (err) {
+        status.className = "form-status err";
+        status.textContent = t("cr_err_generic");
+      } finally {
+        btn.disabled = false;
+      }
+    });
+  }
+
   /* ---------------- Reveal on scroll ---------------- */
   function initReveal() {
     const els = $$(".reveal");
@@ -1136,9 +1275,11 @@ const WA_GREETING = {
     initScroll();
     initReveal();
     initForm();
+    initApplyForm();
     initLanguage();   // applies saved language + renders team (built-in list) + WhatsApp
     loadTeamFromApi();     // upgrade the team to live database data when available
     loadSettingsFromApi(); // upgrade contacts + social links from the database
     loadTourismFromApi();  // upgrade tourism destinations + gallery from the database
+    loadJobsFromApi();     // upgrade job openings from the database
   });
 })();
