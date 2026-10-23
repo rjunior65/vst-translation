@@ -11,6 +11,9 @@ define('PT_DEFAULT_PASSWORD', 'vst123456');  // temporary password for new users
 define('PT_MIN_PASSWORD', 8);
 define('PT_TZ', 'America/Guyana');           // UTC-4, no daylight saving
 define('PT_SESSION_NAME', 'vst_ponto');
+// Private files (chat attachments, punch selfies, profile photos) live OUTSIDE public_html,
+// like the website's CVs: /home/<user>/vst-private/. Overridable in includes/config.local.php.
+if (!defined('PT_PRIVATE_DIR')) define('PT_PRIVATE_DIR', dirname(__DIR__, 3) . '/vst-private/');
 
 date_default_timezone_set(PT_TZ);
 header('Cache-Control: no-store');
@@ -202,7 +205,7 @@ function logout_user(): void {
     session_destroy();
 }
 function home_for(array $u): string {
-    return $u['role'] === 'admin' ? 'admin/hoje.php' : 'painel.php';
+    return 'painel.php';   // everyone starts on the punch screen
 }
 
 /* ---- Audit log: every admin change is recorded with old/new values ---- */

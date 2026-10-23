@@ -41,7 +41,8 @@ page_head(t('messages'), $user);
       <?php foreach ($list as $c): $l = $c['last']; ?>
         <li>
           <a href="conversa.php?id=<?= (int)$c['id'] ?>" class="<?= $c['unread'] ? 'has-unread' : '' ?>">
-            <span class="conv-avatar <?= $c['type'] ?>"><?= e(mb_strtoupper(mb_substr($c['title'], 0, 1))) ?></span>
+            <?php if ($c['person']): ?><?= str_replace('class="avatar"', 'class="avatar conv-avatar"', avatar_html($c['person'])) ?>
+            <?php else: ?><span class="conv-avatar <?= $c['type'] ?>"><?= $c['type'] === 'group' ? icon('users') : e(mb_strtoupper(mb_substr($c['title'], 0, 1))) ?></span><?php endif; ?>
             <span class="conv-main">
               <span class="conv-title"><?= e($c['title']) ?><?php if ($c['type'] === 'group'): ?> <span class="tag"><?= e(t('group')) ?></span><?php endif; ?></span>
               <span class="conv-preview muted"><?php

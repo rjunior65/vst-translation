@@ -145,6 +145,7 @@ page_head($title, $user, 'chat-page');
         if ($d !== $day) { echo '<div class="day-sep" data-day="' . e($d) . '"><span>' . e(chat_day_label($d)) . '</span></div>'; $day = $d; }
         echo chat_render_message($m, $user);
     } ?>
+    <div class="typing" id="typing" hidden></div>
     <span id="end"></span>
   </div>
 

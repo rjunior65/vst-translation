@@ -8,7 +8,7 @@
    /home/<user>/vst-private/chat/ — only arquivo.php can serve them.
    ============================================================ */
 
-if (!defined('PT_CHAT_DIR')) define('PT_CHAT_DIR', dirname(__DIR__, 3) . '/vst-private/chat/');  // overridable in config.local.php
+define('PT_CHAT_DIR', PT_PRIVATE_DIR . 'chat/');
 define('PT_CHAT_MAX_BYTES', 10 * 1024 * 1024);   // 10 MB per file
 define('PT_CHAT_MAX_FILES', 5);                  // files per message
 define('PT_CHAT_MAX_BODY', 5000);                // characters per message
@@ -107,8 +107,11 @@ function chat_list(array $user): array {
     $last = pt_db()->prepare("SELECT m.body, m.created_at, u.full_name,
             (SELECT COUNT(*) FROM pt_chat_files f WHERE f.message_id = m.id) AS files
         FROM pt_chat_messages m JOIN pt_users u ON u.id = m.sender_id WHERE m.id = ?");
+    $who = pt_db()->prepare("SELECT id, full_name, photo, employee_id FROM pt_users WHERE id = ?");
     foreach ($rows as &$r) {
         $r['title'] = chat_title($r, $user);
+        $r['person'] = null;   // the employee's photo on the admin side
+        if ($r['type'] === 'direct' && $user['role'] === 'admin') { $who->execute([$r['employee_user_id']]); $r['person'] = $who->fetch() ?: null; }
         $r['last'] = null;
         if ($r['last_id']) { $last->execute([$r['last_id']]); $r['last'] = $last->fetch(); }
     }
@@ -132,7 +135,7 @@ function chat_mark_read(int $convId, int $userId, int $lastId): void {
 function chat_messages(int $convId, int $afterId = 0, int $limit = 300): array {
     $limit = (int)$limit;
     $st = pt_db()->prepare("SELECT * FROM (
-            SELECT m.*, u.full_name, u.role FROM pt_chat_messages m JOIN pt_users u ON u.id = m.sender_id
+            SELECT m.*, u.full_name, u.role, u.photo, u.employee_id FROM pt_chat_messages m JOIN pt_users u ON u.id = m.sender_id
             WHERE m.conversation_id = ? AND m.id > ? ORDER BY m.id DESC LIMIT $limit) x ORDER BY id");
     $st->execute([$convId, $afterId]);
     $msgs = $st->fetchAll();
@@ -247,7 +250,10 @@ function chat_render_message(array $m, array $me, string $base = ''): string {
     $mine = (int)$m['sender_id'] === (int)$me['id'];
     $who  = e($m['full_name']) . ($m['role'] === 'admin' ? ' <span class="who-role">' . e(t('administration')) . '</span>' : '');
     $html = '<div class="msg ' . ($mine ? 'mine' : 'theirs') . '" data-id="' . (int)$m['id'] . '" data-day="' . e(substr($m['created_at'], 0, 10)) . '">';
-    if (!$mine) $html .= '<div class="msg-who">' . $who . '</div>';
+    if (!$mine) {
+        $sender = ['id' => $m['sender_id'], 'full_name' => $m['full_name'], 'photo' => $m['photo'], 'employee_id' => $m['employee_id']];
+        $html .= '<div class="msg-who">' . avatar_html($sender, 'xs') . $who . '</div>';
+    }
     $html .= '<div class="bubble">';
     foreach ($m['files'] as $f) {
         $ext = strtolower(pathinfo($f['stored_name'], PATHINFO_EXTENSION));

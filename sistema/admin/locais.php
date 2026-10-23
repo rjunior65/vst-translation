@@ -34,10 +34,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     csrf_verify();
 
     if (($_POST['action'] ?? '') === 'rules') {
-        $old = ['outside_policy' => setting('outside_policy', 'flag'), 'min_gps_accuracy' => setting('min_gps_accuracy', '100')];
+        $old = ['outside_policy' => setting('outside_policy', 'flag'), 'min_gps_accuracy' => setting('min_gps_accuracy', '100'),
+                'punch_photo' => setting('punch_photo', 'off'), 'photo_days' => setting('photo_days', '31')];
         $new = [
             'outside_policy'   => ($_POST['outside_policy'] ?? '') === 'block' ? 'block' : 'flag',
             'min_gps_accuracy' => (string)max(0, min(1000, (int)($_POST['min_gps_accuracy'] ?? 100))),
+            'punch_photo'      => in_array($_POST['punch_photo'] ?? '', ['off', 'optional', 'required'], true) ? $_POST['punch_photo'] : 'off',
+            'photo_days'       => (string)max(1, min(366, (int)($_POST['photo_days'] ?? 31))),
         ];
         $up = pt_db()->prepare("INSERT INTO pt_settings (skey, svalue) VALUES (?, ?) ON DUPLICATE KEY UPDATE svalue = VALUES(svalue)");
         foreach ($new as $k => $v) $up->execute([$k, $v]);
@@ -153,7 +156,7 @@ page_head(t('locations'), $me);
     <?php endif; ?>
 
     <form class="form rules-form" method="post">
-      <h2 class="form-title"><?= e(t('gps_rules')) ?></h2>
+      <h2 class="form-title"><?= e(t('gps_photo_rules')) ?></h2>
       <?= csrf_field() ?>
       <input type="hidden" name="action" value="rules">
       <label for="outside_policy"><?= e(t('policy')) ?></label>
@@ -164,6 +167,15 @@ page_head(t('locations'), $me);
       <label for="min_gps_accuracy"><?= e(t('max_accuracy')) ?></label>
       <input type="number" id="min_gps_accuracy" name="min_gps_accuracy" value="<?= (int)setting('min_gps_accuracy', '100') ?>" min="0" max="1000" step="10">
       <span class="hint"><?= e(t('max_accuracy_hint')) ?></span>
+      <label for="punch_photo"><?= e(t('photo_setting')) ?></label>
+      <select id="punch_photo" name="punch_photo">
+        <?php foreach (['off', 'optional', 'required'] as $pm): ?>
+          <option value="<?= $pm ?>" <?= setting('punch_photo', 'off') === $pm ? 'selected' : '' ?>><?= e(t('photo_' . $pm . ($pm === 'optional' ? '_opt' : ''))) ?></option>
+        <?php endforeach; ?>
+      </select>
+      <label for="photo_days"><?= e(t('photo_days')) ?></label>
+      <input type="number" id="photo_days" name="photo_days" value="<?= (int)setting('photo_days', '31') ?>" min="1" max="366">
+      <span class="hint"><?= e(t('photo_days_hint')) ?></span>
       <div class="form-actions"><button type="submit" class="btn btn-primary"><?= e(t('save')) ?></button></div>
     </form>
   <?php endif; ?>

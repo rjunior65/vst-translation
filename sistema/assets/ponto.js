@@ -96,22 +96,22 @@
   function busy(on, btn) {
     buttons.forEach(function (b) { b.disabled = on; });
     if (btn) {
-      if (on) { if (!btn.dataset.label) btn.dataset.label = btn.textContent; btn.textContent = T.sending; }
-      else if (btn.dataset.label) { btn.textContent = btn.dataset.label; }
+      if (on) { if (!btn.dataset.html) btn.dataset.html = btn.innerHTML; btn.textContent = T.sending; }
+      else if (btn.dataset.html) { btn.innerHTML = btn.dataset.html; }
     }
   }
 
-  function send(type, btn) {
+  // Sent as a form so a selfie can go along; the time is set by the server.
+  function send(type, btn, photo) {
     errBox.hidden = true;
     busy(true, btn);
-    var body = { csrf: C.csrf, type: type, source: standalone ? 'app' : 'web' };
-    if (pos) { body.lat = pos.lat; body.lng = pos.lng; body.accuracy = pos.accuracy; }
-    fetch(C.api, {
-      method: 'POST',
-      credentials: 'same-origin',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body)
-    }).then(function (r) {
+    var body = new FormData();
+    body.append('csrf', C.csrf);
+    body.append('type', type);
+    body.append('source', standalone ? 'app' : 'web');
+    if (pos) { body.append('lat', pos.lat); body.append('lng', pos.lng); body.append('accuracy', pos.accuracy); }
+    if (photo) body.append('photo', photo);
+    fetch(C.api, { method: 'POST', credentials: 'same-origin', body: body }).then(function (r) {
       return r.json().catch(function () { return { ok: false }; }).then(function (j) { return { status: r.status, j: j }; });
     }).then(function (res) {
       if (res.j.ok || res.j.error === 'sequence') { location.reload(); return; }
@@ -126,21 +126,42 @@
     });
   }
 
+  // Give the GPS a moment if it hasn't answered yet (first fix can be slow).
+  function locateThenSend(type, btn, photo) {
+    if (!pos && !gpsError && 'geolocation' in navigator) {
+      busy(true, btn);
+      navigator.geolocation.getCurrentPosition(function (p) {
+        pos = { lat: p.coords.latitude, lng: p.coords.longitude, accuracy: p.coords.accuracy };
+        showGps();
+        send(type, btn, photo);
+      }, function () { send(type, btn, photo); }, { enableHighAccuracy: true, timeout: 10000, maximumAge: 10000 });
+      return;
+    }
+    send(type, btn, photo);
+  }
+
+  /* ---- Selfie (when the admin turned it on): opens the front camera first ---- */
+  var photoInput = document.getElementById('punch-photo');
+  var photoOpt = document.getElementById('photo-opt');
+  var pending = null;
+  if (photoInput) {
+    photoInput.addEventListener('change', function () {
+      var f = photoInput.files[0];
+      var p = pending; pending = null;
+      photoInput.value = '';
+      if (!p) return;
+      if (!f && C.photo === 'required') { errBox.textContent = T.photo_needed; errBox.hidden = false; return; }
+      locateThenSend(p.type, p.btn, f || null);
+    });
+  }
+
   buttons.forEach(function (btn) {
     btn.addEventListener('click', function () {
       var type = btn.dataset.type;
       if (type === 'out' && !window.confirm(T.confirm_out)) return;
-      // Give the GPS a moment if it hasn't answered yet (first fix can be slow).
-      if (!pos && !gpsError && 'geolocation' in navigator) {
-        busy(true, btn);
-        navigator.geolocation.getCurrentPosition(function (p) {
-          pos = { lat: p.coords.latitude, lng: p.coords.longitude, accuracy: p.coords.accuracy };
-          showGps();
-          send(type, btn);
-        }, function () { send(type, btn); }, { enableHighAccuracy: true, timeout: 10000, maximumAge: 10000 });
-        return;
-      }
-      send(type, btn);
+      var wantPhoto = photoInput && (C.photo === 'required' || (photoOpt && photoOpt.checked));
+      if (wantPhoto) { pending = { type: type, btn: btn }; photoInput.click(); return; }
+      locateThenSend(type, btn, null);
     });
   });
 })();

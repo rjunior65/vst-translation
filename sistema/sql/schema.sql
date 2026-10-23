@@ -43,6 +43,8 @@ CREATE TABLE IF NOT EXISTS pt_users (
   employee_id          INT          NULL,
   full_name            VARCHAR(160) NOT NULL,
   username             VARCHAR(80)  NOT NULL UNIQUE,     -- firstname.lastname
+  email                VARCHAR(190) NOT NULL DEFAULT '',
+  photo                VARCHAR(80)  NULL,                -- profile photo file (outside public_html)
   password_hash        VARCHAR(255) NOT NULL,
   must_change_password TINYINT(1)   NOT NULL DEFAULT 1,
   role                 ENUM('admin','employee') NOT NULL DEFAULT 'employee',
@@ -205,6 +207,14 @@ CREATE TABLE IF NOT EXISTS pt_notifications (
   INDEX idx_kind_day (user_id, kind, ref_date)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- "Someone is typing…" in the chat (rows older than a few seconds are ignored).
+CREATE TABLE IF NOT EXISTS pt_chat_typing (
+  conversation_id INT      NOT NULL,
+  user_id         INT      NOT NULL,
+  at              DATETIME NOT NULL,
+  PRIMARY KEY (conversation_id, user_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 -- ---- System settings (key/value, like the site's `settings`) ----
 CREATE TABLE IF NOT EXISTS pt_settings (
   skey   VARCHAR(64) PRIMARY KEY,
@@ -213,7 +223,8 @@ CREATE TABLE IF NOT EXISTS pt_settings (
 
 INSERT IGNORE INTO pt_settings (skey, svalue) VALUES
   ('timezone',          'America/Guyana'),
-  ('require_photo',     '0'),
   ('outside_policy',    'flag'),   -- flag = accept and mark "outside"; block = refuse
   ('min_gps_accuracy',  '100'),    -- metres; worse readings are flagged
-  ('reminders',         '1');      -- clock-in / clock-out reminders (needs the cron job)
+  ('reminders',         '1'),      -- clock-in / clock-out reminders (needs the cron job)
+  ('punch_photo',       'off'),    -- off | optional | required: selfie when clocking in/out
+  ('photo_days',        '31');     -- punch selfies are deleted after this many days

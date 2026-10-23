@@ -66,5 +66,14 @@ Ao final: ajustar raio, tolerâncias e jornadas, e liberar para todos com **Impo
 
 ## Onde ficam as coisas
 
-- Anexos do chat: `/home/yasmi374/vst-private/chat/` (fora do site, como os currículos).
+Tudo o que é enviado fica fora do site, em `/home/yasmi374/vst-private/` (o servidor cria as pastas sozinho):
+
+| Pasta | Conteúdo | Quem vê |
+|---|---|---|
+| `cv/` | currículos do "Trabalhe Conosco" (também avisa por e-mail) | admin → **Currículos** |
+| `chat/` | fotos e documentos do chat | quem participa da conversa → **Arquivos** |
+| `ponto-fotos/` | foto no momento do ponto (se ligada em **Locais**) | a própria pessoa e o admin; apagadas após 31 dias (configurável) |
+| `perfil/` | foto de perfil | colegas logados |
+
+As fotos são reduzidas e regravadas em JPEG (sem dados escondidos do celular, como GPS) quando o PHP tem a extensão GD, que a HostGator já traz ligada.
 - Toda alteração do admin fica registrada na tabela `pt_audit_log`, com o motivo.

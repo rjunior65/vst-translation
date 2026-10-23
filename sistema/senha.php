@@ -7,6 +7,7 @@ require_once __DIR__ . '/inc/layout.php';
 $user = current_user();
 if (!$user) redirect('login.php');
 $forced = (int)$user['must_change_password'] === 1;
+if (!$forced && $_SERVER['REQUEST_METHOD'] !== 'POST') redirect('perfil.php#senha');   // normal changes live in the profile
 
 $error = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

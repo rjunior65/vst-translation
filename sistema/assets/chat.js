@@ -13,6 +13,7 @@
   var sendBtn = document.getElementById('send');
   var end = document.getElementById('end');
   var last = C.last;
+  var typingEl = document.getElementById('typing');
   var busy = false;
 
   function lastDay() {
@@ -20,7 +21,7 @@
     return els.length ? els[els.length - 1].getAttribute('data-day') : '';
   }
   function nearBottom() { return window.innerHeight + window.scrollY >= document.body.scrollHeight - 160; }
-  function toBottom() { end.scrollIntoView({ block: 'end' }); }
+  function toBottom() { window.scrollTo(0, document.documentElement.scrollHeight); }   // the composer and tab bar float over the end
   function append(html, scroll) {
     if (!html) return;
     var empty = document.getElementById('chat-empty');
@@ -33,7 +34,7 @@
       var day = el.classList.contains('day-sep') ? el.getAttribute('data-day') : null;
       if (id && box.querySelector('.msg[data-id="' + id + '"]')) return;
       if (day && box.querySelector('.day-sep[data-day="' + day + '"]')) return;
-      end.parentNode.insertBefore(el, end);
+      end.parentNode.insertBefore(el, typingEl);
     });
     if (scroll) toBottom();
   }
@@ -43,10 +44,31 @@
   }
 
   toBottom();
+  window.addEventListener('load', toBottom);   // images and fonts change the height after the first paint
 
   /* ---- composer: auto-grow, Enter sends (Shift+Enter = new line) on desktop ---- */
-  function grow() { body.style.height = 'auto'; body.style.height = Math.min(body.scrollHeight, 160) + 'px'; }
+  function grow() {
+    body.style.height = 'auto';
+    body.style.height = Math.min(body.scrollHeight, 160) + 'px';
+    body.style.overflowY = body.scrollHeight > 160 ? 'auto' : 'hidden';
+  }
   body.addEventListener('input', grow);
+
+  /* ---- "typing…": tell the others at most every 3 s while writing ---- */
+  var lastPing = 0;
+  body.addEventListener('input', function () {
+    var now = Date.now();
+    if (!body.value.trim() || now - lastPing < 3000) return;
+    lastPing = now;
+    var fd = new FormData(); fd.append('csrf', C.csrf);
+    fetch(C.api + '?action=typing&c=' + C.id, { method: 'POST', credentials: 'same-origin', body: fd }).catch(function () {});
+  });
+  function showTyping(html) {
+    var stick = nearBottom();
+    typingEl.innerHTML = html || '';
+    typingEl.hidden = !html;
+    if (html && stick) toBottom();
+  }
   body.addEventListener('keydown', function (e) {
     var touch = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
     if (e.key === 'Enter' && !e.shiftKey && !touch) { e.preventDefault(); form.requestSubmit ? form.requestSubmit() : form.submit(); }
@@ -93,7 +115,7 @@
       .then(function () { busy = false; sendBtn.disabled = false; sendBtn.textContent = T.send; body.focus(); });
   });
 
-  /* ---- polling: every 5 s while visible, 30 s in the background ---- */
+  /* ---- polling: every 3 s while visible, 30 s in the background ---- */
   var timer = null;
   function poll() {
     if (busy) return schedule();
@@ -105,12 +127,13 @@
           append(j.html, stick);
           last = Math.max(last, j.last);
         }
+        if (j && j.ok) showTyping(j.typing);
         if (j && j.ok && window.PT_setUnread) window.PT_setUnread(j.unread);
       })
       .catch(function () {})
       .then(schedule);
   }
-  function schedule() { clearTimeout(timer); timer = setTimeout(poll, document.hidden ? 30000 : 5000); }
+  function schedule() { clearTimeout(timer); timer = setTimeout(poll, document.hidden ? 30000 : 3000); }
   document.addEventListener('visibilitychange', function () { if (!document.hidden) { clearTimeout(timer); poll(); } });
   schedule();
 })();

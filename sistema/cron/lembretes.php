@@ -7,6 +7,7 @@
 // - no clock-in yet, after start + late tolerance + 5 min
 // - still working (or on break), 30 min after the scheduled end
 // Each reminder is sent at most once per person per day.
+// Also deletes old punch selfies once a day (Locations > photo settings).
 // ============================================================
 if (PHP_SAPI !== 'cli') { http_response_code(403); exit; }
 
@@ -14,6 +15,9 @@ require_once __DIR__ . '/../inc/bootstrap.php';
 require_once __DIR__ . '/../inc/hours.php';
 require_once __DIR__ . '/../inc/punch.php';
 require_once __DIR__ . '/../inc/push.php';
+require_once __DIR__ . '/../inc/media.php';
+
+purge_photos_daily();   // punch selfies older than the configured days (once a day)
 
 if (setting_raw('reminders') === '0') exit(0);
 

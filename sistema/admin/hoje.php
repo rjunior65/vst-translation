@@ -5,6 +5,7 @@ require_once __DIR__ . '/../inc/layout.php';
 require_once __DIR__ . '/../inc/hours.php';
 
 $me = require_admin();
+purge_photos_daily();   // fallback if the cron job isn't set up
 
 $users = pt_db()->query("SELECT * FROM pt_users WHERE is_active = 1 ORDER BY full_name")->fetchAll();
 $rep   = month_report($users, date('Y-m'));
@@ -33,10 +34,10 @@ $flaggedToday = (int)pt_db()->query("SELECT COUNT(*) FROM pt_punches WHERE is_vo
                                      AND punched_at >= CURDATE()")->fetchColumn();
 $noSchedule = (int)pt_db()->query("SELECT COUNT(*) FROM pt_users WHERE is_active = 1 AND schedule_id IS NULL")->fetchColumn();
 
-page_head(t('today'), $me);
+page_head(t('team_today'), $me);
 ?>
   <div class="page-head">
-    <h1><?= e(t('today')) ?> <span class="muted"><?= e(date('d/m/Y')) ?> · <span id="now"><?= e(date('H:i')) ?></span></span></h1>
+    <h1><?= e(t('team_today')) ?> <span class="muted"><?= e(date('d/m/Y')) ?> · <span id="now"><?= e(date('H:i')) ?></span></span></h1>
     <span class="muted small"><?= e(t('auto_refresh')) ?></span>
   </div>
 
@@ -62,7 +63,7 @@ page_head(t('today'), $me);
       <tbody>
       <?php foreach ($rows as $r): $s = $r['s']; ?>
         <tr>
-          <td><a href="pontos.php?usuario=<?= (int)$r['u']['id'] ?>&de=<?= e($today) ?>&ate=<?= e($today) ?>"><?= e($r['u']['full_name']) ?></a></td>
+          <td><a class="person" href="pontos.php?usuario=<?= (int)$r['u']['id'] ?>&de=<?= e($today) ?>&ate=<?= e($today) ?>"><?= avatar_html($r['u'], 'sm') ?><?= e($r['u']['full_name']) ?></a></td>
           <td><span class="pill pill-<?= e($r['key']) ?>"><?= e(t('k_' . $r['key'])) ?></span></td>
           <td><?= $s['first_in'] ? e(date('H:i', $s['first_in'])) : '—' ?></td>
           <td><?= $s['count'] ? e(fmt_hm($s['worked'])) : '—' ?></td>

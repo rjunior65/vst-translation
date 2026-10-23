@@ -13,6 +13,17 @@ $last  = $today ? end($today) : null;
 $next  = next_actions($last['type'] ?? null);
 
 $state = 'off';
+$photoMode = setting('punch_photo', 'off');   // off | optional | required
+
+// The four times of the day: first clock-in, first break out, return from it, last clock-out.
+$times = ['in' => null, 'break_start' => null, 'break_end' => null, 'out' => null];
+$breaks = 0;
+foreach ($today as $p) {
+    $ts = strtotime($p['punched_at']);
+    if ($p['type'] === 'break_start') $breaks++;
+    if ($p['type'] === 'out') $times['out'] = $ts;                       // last one wins
+    elseif ($times[$p['type']] === null) $times[$p['type']] = $ts;      // first one wins
+}
 if ($last && in_array($last['type'], ['in', 'break_end'], true)) $state = 'working';
 if ($last && $last['type'] === 'break_start') $state = 'break';
 if ($last && $last['type'] === 'out') $state = 'done';
@@ -30,6 +41,7 @@ $config = [
     'mode'      => $user['work_mode'],
     'locations' => $jsLocs,
     'maxAcc'    => (int)setting('min_gps_accuracy', '100'),
+    'photo'     => $photoMode,
     'counters'  => [
         'state'    => $state,
         'worked'   => $sum['worked'],
@@ -49,11 +61,13 @@ $config = [
         'sending'     => t('punch_sending'),
         'failed'      => t('err_server'),
         'confirm_out' => t('confirm_out'),
+        'photo_needed'=> t('photo_needed'),
     ],
 ];
 
 page_head(t('my_punch'), $user);
 ?>
+<div class="punch-wrap">
   <section class="card punch-card state-<?= e($state) ?>">
     <p class="muted punch-hello"><?= e(t('hello', ['name' => explode(' ', $user['full_name'])[0]])) ?></p>
     <div class="clock" id="clock"><?= e(date('H:i:s')) ?></div>
@@ -63,12 +77,31 @@ page_head(t('my_punch'), $user);
 
     <div class="punch-actions">
       <?php foreach ($next as $type): ?>
-        <button type="button" class="btn-punch punch-<?= e($type) ?>" data-type="<?= e($type) ?>"><?= e(t('btn_' . $type)) ?></button>
+        <button type="button" class="btn-punch punch-<?= e($type) ?>" data-type="<?= e($type) ?>">
+          <?php if ($photoMode === 'required'): ?><?= icon('camera') ?><?php endif; ?><?= e(t('btn_' . $type)) ?></button>
       <?php endforeach; ?>
     </div>
+    <?php if ($photoMode !== 'off'): ?>
+      <input type="file" id="punch-photo" accept="image/*" capture="user" hidden>
+      <?php if ($photoMode === 'optional'): ?>
+        <label class="photo-note"><input type="checkbox" id="photo-opt"> <?= icon('camera') ?> <?= e(t('photo_optional')) ?></label>
+      <?php else: ?>
+        <p class="photo-note"><?= icon('camera') ?> <?= e(t('photo_required_note')) ?></p>
+      <?php endif; ?>
+    <?php endif; ?>
 
     <p class="gps-line" id="gps"><?= e(t('gps_locating')) ?></p>
     <p class="alert alert-error" id="punch-error" hidden></p>
+  </section>
+
+  <section class="day-times" aria-label="<?= e(t('today')) ?>">
+    <?php foreach ($times as $type => $ts): ?>
+      <div class="dt <?= $ts ? 'done' : '' ?>">
+        <span class="dt-label"><?= e(t('slot_' . $type)) ?></span>
+        <span class="dt-time"><?= $ts ? e(date('H:i', $ts)) : '--:--' ?></span>
+        <?php if ($type === 'break_start' && $breaks > 1): ?><span class="dt-extra"><?= e(t('more_breaks', ['n' => $breaks - 1])) ?></span><?php endif; ?>
+      </div>
+    <?php endforeach; ?>
   </section>
 
   <section class="counters">
@@ -84,7 +117,7 @@ page_head(t('my_punch'), $user);
       <?php if ($sum['late_min'] > 0): ?> · <span class="tag warn"><?= e(t('tag_late', ['m' => $sum['late_min']])) ?></span><?php endif; ?></p>
   <?php endif; ?>
 
-  <h2 class="section-title"><?= e(t('today')) ?> <a href="historico.php" class="see-all"><?= e(t('see_history')) ?> ›</a></h2>
+  <h2 class="section-title"><?= e(t('today')) ?> <a href="pontos.php" class="see-all"><?= e(t('see_all')) ?> ›</a></h2>
   <?php if (!$today): ?>
     <p class="muted"><?= e(t('no_punches_today')) ?></p>
   <?php else: ?>
@@ -95,6 +128,7 @@ page_head(t('my_punch'), $user);
           <span class="punch-type"><?= e(t('type_' . $p['type'])) ?></span>
           <?php if ($p['status'] !== 'ok'): ?><span class="tag warn"><?= e(t('st_' . $p['status'])) ?></span><?php endif; ?>
           <?php if ($p['distance_m'] !== null): ?><span class="muted punch-dist"><?= e(fmt_distance((int)$p['distance_m'])) ?></span><?php endif; ?>
+          <?php if ($p['photo_path']): ?><img class="punch-thumb" src="foto-ponto.php?id=<?= (int)$p['id'] ?>" alt=""><?php endif; ?>
         </li>
       <?php endforeach; ?>
     </ul>
@@ -122,6 +156,8 @@ page_head(t('my_punch'), $user);
     <p class="muted" id="push-denied" hidden><?= e(t('notif_denied')) ?></p>
     <p class="small" id="push-msg"></p>
   </section>
+
+</div>
 
   <script>window.PONTO = <?= json_encode($config, JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP) ?>;</script>
   <script src="assets/ponto.js"></script>

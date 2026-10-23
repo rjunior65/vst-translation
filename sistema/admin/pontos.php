@@ -79,7 +79,7 @@ if ($status === 'flagged')  $where[] = "p.status IN ('outside','no_gps') AND p.i
 if ($status === 'manual')   $where[] = "p.status = 'manual' AND p.is_void = 0";
 if ($status === '')         $where[] = 'p.is_void = 0';
 // status = void → show everything, voided rows included
-$st = pt_db()->prepare("SELECT p.*, u.full_name FROM pt_punches p JOIN pt_users u ON u.id = p.user_id
+$st = pt_db()->prepare("SELECT p.*, u.full_name, u.photo, u.employee_id FROM pt_punches p JOIN pt_users u ON u.id = p.user_id
                         WHERE " . implode(' AND ', $where) . " ORDER BY p.punched_at DESC, p.id DESC LIMIT 1000");
 $st->execute($args);
 $punches = $st->fetchAll();
@@ -148,7 +148,7 @@ page_head(t('punches'), $me);
       <?php foreach ($punches as $p): $void = (int)$p['is_void'] === 1; ?>
         <tr class="<?= $void ? 'voided' : '' ?>">
           <td class="nowrap"><?= e(date('d/m H:i', strtotime($p['punched_at']))) ?></td>
-          <td><?= e($p['full_name']) ?></td>
+          <td><span class="person"><?= avatar_html(['id' => $p['user_id']] + $p, 'xs') ?><?= e($p['full_name']) ?></span></td>
           <td><?= e(t('type_' . $p['type'])) ?></td>
           <td class="tags">
             <?php if ($void): ?><span class="tag"><?= e(t('st_void')) ?></span>
@@ -160,6 +160,7 @@ page_head(t('punches'), $me);
               <a href="https://www.google.com/maps?q=<?= e($p['lat'] . ',' . $p['lng']) ?>" target="_blank" rel="noopener"><?= e(fmt_distance($p['distance_m'] === null ? null : (int)$p['distance_m'])) ?></a>
               <?php if ($p['accuracy_m'] !== null): ?><span class="muted small">±<?= (int)$p['accuracy_m'] ?> m</span><?php endif; ?>
             <?php else: ?>—<?php endif; ?>
+            <?php if ($p['photo_path']): ?><a href="../foto-ponto.php?id=<?= (int)$p['id'] ?>" target="_blank"><img class="punch-thumb" src="../foto-ponto.php?id=<?= (int)$p['id'] ?>" alt="" loading="lazy"></a><?php endif; ?>
           </td>
           <td>
             <?php if (!$void): ?>
