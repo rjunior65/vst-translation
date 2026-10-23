@@ -46,6 +46,8 @@ h1{color:var(--blue);margin:.5em 0;font-size:1.5rem}
 .auth-card h1{text-align:center;font-size:1.25rem;margin:.2em 0 .8em}
 .auth-card label{font-size:.85rem;font-weight:700;color:var(--blue);margin-top:.7rem}
 .auth-card input{padding:.75rem .8rem;border:1px solid var(--border);border-radius:8px;font-size:1rem;margin-top:.25rem;width:100%}
+.auth-card label.remember{display:flex;align-items:center;gap:.5rem;font-weight:600;color:var(--text);margin-top:.9rem}
+.auth-card label.remember input{width:auto;margin:0}
 .auth-foot{text-align:center;color:var(--muted);font-size:.82rem;margin:1rem 0 0}
 .auth-langs{text-align:center;margin-top:.8rem}
 .auth-langs .langs a{color:var(--blue)}
@@ -125,6 +127,12 @@ code.user{background:var(--gray);border:1px solid var(--border);border-radius:6p
 .ot{color:var(--ok)}
 .expected-line{text-align:center;max-width:520px;margin:.6rem auto 0;font-size:.88rem}
 .see-all{font-size:.85rem;font-weight:600;float:right;margin-top:.2rem}
+
+/* App cards (install / notifications) */
+.app-card{max-width:520px;margin:14px auto 0;position:relative;padding:16px 18px}
+.app-card p{margin:.3rem 0 .6rem}
+.app-card[hidden],.app-card [hidden]{display:none}
+.app-card-close{position:absolute;top:6px;right:10px;background:none;border:0;font-size:1.4rem;color:var(--muted);cursor:pointer}
 
 /* Tiles (reports / today) */
 .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin:.8rem 0}

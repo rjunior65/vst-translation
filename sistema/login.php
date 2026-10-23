@@ -39,6 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($user && password_verify($pass, $user['password_hash'])) {
             pt_db()->prepare("DELETE FROM pt_login_attempts WHERE ip = ? OR username = ?")->execute([$ip, $username]);
             login_user($user);
+            if (!empty($_POST['remember'])) remember_issue((int)$user['id']);
             redirect((int)$user['must_change_password'] === 1 ? 'senha.php' : home_for($user));
         }
 
@@ -61,6 +62,7 @@ page_head(t('login_title'), null, 'auth-body');
     <span class="hint"><?= e(t('login_hint')) ?></span>
     <label for="password"><?= e(t('password')) ?></label>
     <input type="password" id="password" name="password" required autocomplete="current-password">
+    <label class="remember"><input type="checkbox" name="remember" value="1" checked> <?= e(t('remember_me')) ?></label>
     <button type="submit" class="btn btn-primary btn-block"><?= e(t('login_btn')) ?></button>
     <p class="auth-foot"><?= e(t('login_forgot')) ?></p>
     <div class="auth-langs"><?= lang_links() ?></div>

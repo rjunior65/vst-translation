@@ -100,6 +100,29 @@ page_head(t('my_punch'), $user);
     </ul>
   <?php endif; ?>
 
+  <section class="card app-card" id="install-card" hidden>
+    <button type="button" class="app-card-close" id="install-close" aria-label="<?= e(t('close')) ?>">×</button>
+    <strong><?= e(t('app_install_title')) ?></strong>
+    <p class="muted"><?= e(t('app_install_text')) ?></p>
+    <button type="button" class="btn btn-primary" id="install-btn"><?= e(t('app_install_btn')) ?></button>
+    <p class="muted small" id="install-ios" hidden><?= e(t('app_install_ios')) ?></p>
+  </section>
+
+  <section class="card app-card" id="push-card" hidden>
+    <strong><?= e(t('notif_title')) ?></strong>
+    <div id="push-off" hidden>
+      <p class="muted"><?= e(t('notif_off_text')) ?></p>
+      <button type="button" class="btn btn-primary" id="push-enable"><?= e(t('notif_enable')) ?></button>
+    </div>
+    <div id="push-on" hidden>
+      <p class="muted">✅ <?= e(t('notif_on_text')) ?></p>
+      <button type="button" class="btn btn-sm" id="push-test"><?= e(t('notif_test')) ?></button>
+      <button type="button" class="btn btn-sm btn-danger" id="push-disable"><?= e(t('notif_disable')) ?></button>
+    </div>
+    <p class="muted" id="push-denied" hidden><?= e(t('notif_denied')) ?></p>
+    <p class="small" id="push-msg"></p>
+  </section>
+
   <script>window.PONTO = <?= json_encode($config, JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP) ?>;</script>
   <script src="assets/ponto.js"></script>
 <?php page_foot();

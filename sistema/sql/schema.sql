@@ -49,6 +49,7 @@ CREATE TABLE IF NOT EXISTS pt_users (
   work_mode            ENUM('office','field','flexible') NOT NULL DEFAULT 'office',
   location_id          INT          NULL,
   schedule_id          INT          NULL,
+  lang                 CHAR(2)      NOT NULL DEFAULT 'en',  -- last language used (for phone notifications)
   is_active            TINYINT(1)   DEFAULT 1,
   last_login_at        DATETIME     NULL,
   created_at           TIMESTAMP    DEFAULT CURRENT_TIMESTAMP,
@@ -160,6 +161,50 @@ CREATE TABLE IF NOT EXISTS pt_chat_reads (
   PRIMARY KEY (conversation_id, user_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- ---- "Keep me signed in" tokens (phone app) -----------------
+-- Cookie = selector:validator; only a hash of the validator is stored.
+CREATE TABLE IF NOT EXISTS pt_remember (
+  id             INT AUTO_INCREMENT PRIMARY KEY,
+  user_id        INT          NOT NULL,
+  selector       CHAR(24)     NOT NULL UNIQUE,
+  validator_hash CHAR(64)     NOT NULL,
+  expires_at     DATETIME     NOT NULL,
+  user_agent     VARCHAR(255) DEFAULT '',
+  created_at     TIMESTAMP    DEFAULT CURRENT_TIMESTAMP,
+  INDEX idx_user (user_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- ---- Web Push subscriptions (one per phone/browser) ---------
+CREATE TABLE IF NOT EXISTS pt_push_subscriptions (
+  id            INT AUTO_INCREMENT PRIMARY KEY,
+  user_id       INT          NOT NULL,
+  endpoint_hash CHAR(64)     NOT NULL UNIQUE,
+  endpoint      TEXT         NOT NULL,
+  p256dh        VARCHAR(200) DEFAULT '',
+  auth          VARCHAR(100) DEFAULT '',
+  user_agent    VARCHAR(255) DEFAULT '',
+  created_at    TIMESTAMP    DEFAULT CURRENT_TIMESTAMP,
+  last_ok_at    DATETIME     NULL,
+  INDEX idx_user (user_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- ---- Notification queue ----------------------------------------
+-- The push itself carries no content; the phone asks for these rows
+-- (signed in) and shows them. kind+ref_date avoid repeated reminders.
+CREATE TABLE IF NOT EXISTS pt_notifications (
+  id           BIGINT AUTO_INCREMENT PRIMARY KEY,
+  user_id      INT          NOT NULL,
+  kind         VARCHAR(30)  NOT NULL,          -- chat, remind_in, remind_out
+  title        VARCHAR(160) NOT NULL,
+  body         VARCHAR(255) NOT NULL DEFAULT '',
+  url          VARCHAR(255) NOT NULL DEFAULT '',
+  ref_date     DATE         NULL,
+  delivered_at DATETIME     NULL,
+  created_at   TIMESTAMP    DEFAULT CURRENT_TIMESTAMP,
+  INDEX idx_user_pending (user_id, delivered_at),
+  INDEX idx_kind_day (user_id, kind, ref_date)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 -- ---- System settings (key/value, like the site's `settings`) ----
 CREATE TABLE IF NOT EXISTS pt_settings (
   skey   VARCHAR(64) PRIMARY KEY,
@@ -170,4 +215,5 @@ INSERT IGNORE INTO pt_settings (skey, svalue) VALUES
   ('timezone',          'America/Guyana'),
   ('require_photo',     '0'),
   ('outside_policy',    'flag'),   -- flag = accept and mark "outside"; block = refuse
-  ('min_gps_accuracy',  '100');    -- metres; worse readings are flagged
+  ('min_gps_accuracy',  '100'),    -- metres; worse readings are flagged
+  ('reminders',         '1');      -- clock-in / clock-out reminders (needs the cron job)

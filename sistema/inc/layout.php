@@ -24,7 +24,15 @@ function page_head(string $title, ?array $user = null, string $bodyClass = ''): 
   <meta name="theme-color" content="#123b6d">
   <title><?= e($title) ?> — <?= e(t('app_name')) ?></title>
   <link rel="icon" href="<?= $b ?>../images/favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="<?= $b ?>manifest.webmanifest">
+  <link rel="apple-touch-icon" href="<?= $b ?>../images/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="VST Ponto">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <?php if ($user): ?><meta name="csrf" content="<?= e(csrf_token()) ?>"><?php endif; ?>
   <link rel="stylesheet" href="<?= $b ?>assets/app.css">
+  <script src="<?= $b ?>assets/app.js" defer></script>
 </head>
 <body class="<?= e($bodyClass) ?>">
 <?php if ($user): ?>

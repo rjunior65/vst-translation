@@ -20,6 +20,14 @@ $errors = [];
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     csrf_verify();
 
+    if (($_POST['action'] ?? '') === 'reminders') {
+        $on = isset($_POST['reminders']) ? '1' : '0';
+        pt_db()->prepare("INSERT INTO pt_settings (skey, svalue) VALUES ('reminders', ?) ON DUPLICATE KEY UPDATE svalue = VALUES(svalue)")->execute([$on]);
+        audit('update_settings', 'setting', null, null, ['reminders' => $on]);
+        flash('ok', t('rules_saved'));
+        redirect('jornadas.php');
+    }
+
     // Give this schedule to everyone who has none yet.
     if (($_POST['action'] ?? '') === 'assign' && $sch) {
         $ids = pt_db()->query("SELECT id FROM pt_users WHERE schedule_id IS NULL")->fetchAll(PDO::FETCH_COLUMN);
@@ -148,5 +156,12 @@ page_head(t('schedules'), $me);
         </table>
       </div>
     <?php endif; ?>
+    <?php $remOn = pt_db()->query("SELECT svalue FROM pt_settings WHERE skey = 'reminders'")->fetchColumn() !== '0'; ?>
+    <form class="form rules-form" method="post">
+      <?= csrf_field() ?><input type="hidden" name="action" value="reminders">
+      <label class="check"><input type="checkbox" name="reminders" value="1" <?= $remOn ? 'checked' : '' ?>> <?= e(t('reminders')) ?></label>
+      <span class="hint"><?= e(t('reminders_hint')) ?></span>
+      <div class="form-actions"><button class="btn btn-primary"><?= e(t('save')) ?></button></div>
+    </form>
   <?php endif; ?>
 <?php page_foot();

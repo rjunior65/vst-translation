@@ -210,7 +210,24 @@ function chat_send(array $conv, array $user, string $body, array $files): array 
         return [null, 'chat_err_upload'];
     }
     chat_mark_read((int)$conv['id'], (int)$user['id'], $msgId);
+    chat_notify($conv, $user, $body, count($ok));
     return [$msgId, null];
+}
+
+/* Phone notification for everyone in the conversation except the sender. */
+function chat_notify(array $conv, array $sender, string $body, int $files): void {
+    require_once __DIR__ . '/push.php';
+    $admins = pt_db()->query("SELECT id FROM pt_users WHERE role = 'admin' AND is_active = 1")->fetchAll(PDO::FETCH_COLUMN);
+    if ($conv['type'] === 'direct') {
+        $to = $sender['role'] === 'admin' ? [(int)$conv['employee_user_id']] : $admins;
+    } else {
+        $to = array_merge($admins, array_column(chat_members((int)$conv['id']), 'id'));
+    }
+    $to = array_diff(array_map('intval', $to), [(int)$sender['id']]);
+    $first = explode(' ', $sender['full_name'])[0];
+    $title = $conv['type'] === 'group' ? $conv['title'] . ' · ' . $first : $first;
+    $text = $body !== '' ? mb_strimwidth(str_replace("\n", ' ', $body), 0, 120, '…') : '📎 ' . t('attachment') . ($files > 1 ? " ×$files" : '');
+    notify($to, 'chat', $title, $text, 'conversa.php?id=' . (int)$conv['id']);
 }
 
 function fmt_bytes(int $b): string {

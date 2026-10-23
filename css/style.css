@@ -187,6 +187,26 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 .nav-cta { display: inline-flex; }
 
+/* Employee portal link (time clock system) */
+.portal-link {
+  display: inline-flex; align-items: center; gap: .4rem; white-space: nowrap;
+  font-weight: 700; font-size: .85rem; color: var(--vst-blue);
+  border: 1.5px solid var(--vst-border); border-radius: 999px; padding: .4rem .85rem;
+  transition: border-color .2s, color .2s, background .2s;
+}
+.portal-link::before { content: ""; width: 14px; height: 14px; background: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-4.4 0-8 2.2-8 5v1h16v-1c0-2.8-3.6-5-8-5z'/%3E%3C/svg%3E") center/contain no-repeat;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-4.4 0-8 2.2-8 5v1h16v-1c0-2.8-3.6-5-8-5z'/%3E%3C/svg%3E") center/contain no-repeat; }
+.portal-link:hover { border-color: var(--vst-blue); background: var(--vst-gray); }
+.portal-link--mobile { display: none; }
+/* The header is already full on laptops: below 1900px the portal link is a round
+   icon (text kept for screen readers) and the menu items sit a little closer. */
+@media (min-width: 1281px) and (max-width: 1899px) {
+  .portal-link--header { width: 36px; height: 36px; padding: 0; justify-content: center; }
+  .portal-link--header .portal-text { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .nav-list { gap: .6rem; }
+}
+
 /* Hamburger */
 .hamburger {
   display: none; flex-direction: column; justify-content: center; gap: 5px;
@@ -218,6 +238,8 @@ ul { margin: 0; padding: 0; list-style: none; }
   .lang-switch--mobile { display: flex; justify-content: center; margin: 1.2rem 0; padding: .6rem; background: var(--vst-gray); border-radius: 999px; }
   .lang-switch--mobile .lang-btn { font-size: 1rem; padding: .4rem .7rem; }
   .nav-cta { display: inline-flex; margin-top: .4rem; }
+  .header-actions .portal-link { display: none; }
+  .portal-link--mobile { display: flex; justify-content: center; margin-top: .8rem; padding: .7rem 1rem; font-size: 1rem; }
 }
 
 /* =================================================================

@@ -24,6 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         pt_db()->prepare("UPDATE pt_users SET password_hash = ?, must_change_password = 0 WHERE id = ?")
             ->execute([password_hash($new, PASSWORD_DEFAULT), $user['id']]);
+        remember_forget_user((int)$user['id'], true);   // other devices must sign in with the new password
         session_regenerate_id(true);
         flash('ok', t('pw_changed'));
         redirect(home_for($user));

@@ -90,11 +90,17 @@ function current_user(): ?array {
     static $user = false;
     if ($user !== false) return $user;
     $user = null;
+    if (empty($_SESSION['pt_uid'])) remember_login();
     if (!empty($_SESSION['pt_uid'])) {
         $st = pt_db()->prepare("SELECT * FROM pt_users WHERE id = ? AND is_active = 1 LIMIT 1");
         $st->execute([(int)$_SESSION['pt_uid']]);
         $user = $st->fetch() ?: null;
         if (!$user) logout_user();
+        // Remember the language the person uses, for notifications sent while they're away.
+        if ($user && ($user['lang'] ?? current_lang()) !== current_lang()) {
+            pt_db()->prepare("UPDATE pt_users SET lang = ? WHERE id = ?")->execute([current_lang(), $user['id']]);
+            $user['lang'] = current_lang();
+        }
     }
     return $user;
 }
@@ -127,7 +133,67 @@ function login_user(array $u): void {
     $_SESSION['pt_uid'] = (int)$u['id'];
     pt_db()->prepare("UPDATE pt_users SET last_login_at = NOW() WHERE id = ?")->execute([$u['id']]);
 }
+/* ---- "Keep me signed in" (30 days on this device) ----
+   PHP sessions die after ~24 idle minutes on shared hosting; on a phone
+   that would mean signing in again all day. The cookie holds
+   selector:validator, the database only a hash of the validator. */
+define('PT_REMEMBER_COOKIE', 'vst_ponto_rem');
+define('PT_REMEMBER_DAYS', 30);
+
+function remember_cookie(string $value, int $expires): void {
+    $https = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (($_SERVER['SERVER_PORT'] ?? '') == 443);
+    setcookie(PT_REMEMBER_COOKIE, $value, ['expires' => $expires, 'path' => '/', 'httponly' => true,
+                                           'secure' => $https, 'samesite' => 'Lax']);
+}
+function remember_issue(int $userId): void {
+    $selector  = bin2hex(random_bytes(12));
+    $validator = bin2hex(random_bytes(32));
+    $expires   = time() + PT_REMEMBER_DAYS * 86400;
+    try {
+        pt_db()->prepare("INSERT INTO pt_remember (user_id, selector, validator_hash, expires_at, user_agent) VALUES (?, ?, ?, ?, ?)")
+            ->execute([$userId, $selector, hash('sha256', $validator), date('Y-m-d H:i:s', $expires),
+                       substr($_SERVER['HTTP_USER_AGENT'] ?? '', 0, 255)]);
+    } catch (PDOException $e) {
+        return;   // table not created yet (database not updated after an upgrade): plain session only
+    }
+    remember_cookie("$selector:$validator", $expires);
+}
+function remember_parts(): ?array {
+    $c = $_COOKIE[PT_REMEMBER_COOKIE] ?? '';
+    return preg_match('/^([0-9a-f]{24}):([0-9a-f]{64})$/', $c, $m) ? [$m[1], $m[2]] : null;
+}
+function remember_login(): void {
+    if (!$p = remember_parts()) return;
+    try {
+        $st = pt_db()->prepare("SELECT r.user_id, r.validator_hash FROM pt_remember r JOIN pt_users u ON u.id = r.user_id
+                                WHERE r.selector = ? AND r.expires_at > NOW() AND u.is_active = 1");
+        $st->execute([$p[0]]);
+        $row = $st->fetch();
+    } catch (PDOException $e) {
+        return;
+    }
+    if ($row && hash_equals($row['validator_hash'], hash('sha256', $p[1]))) {
+        session_regenerate_id(true);
+        $_SESSION['pt_uid'] = (int)$row['user_id'];
+    } else {
+        remember_cookie('', time() - 3600);   // stale or forged cookie
+    }
+}
+/* Sign out every device of a user (password reset), optionally keeping this one. */
+function remember_forget_user(int $userId, bool $keepThisDevice = false): void {
+    $p = $keepThisDevice ? remember_parts() : null;
+    try {
+        pt_db()->prepare("DELETE FROM pt_remember WHERE user_id = ? AND selector <> ?")->execute([$userId, $p[0] ?? '']);
+    } catch (PDOException $e) {
+        // table not created yet: nothing to forget
+    }
+}
+
 function logout_user(): void {
+    if ($p = remember_parts()) {
+        pt_db()->prepare("DELETE FROM pt_remember WHERE selector = ?")->execute([$p[0]]);
+        remember_cookie('', time() - 3600);
+    }
     $_SESSION = [];
     if (ini_get('session.use_cookies')) {
         $p = session_get_cookie_params();

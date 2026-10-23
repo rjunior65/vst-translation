@@ -2,3 +2,17 @@
 # HTTPS redirect and security headers come from the root .htaccess.
 DirectoryIndex index.php
 Options -Indexes
+
+# PWA files
+AddType application/manifest+json .webmanifest
+<IfModule mod_headers.c>
+  <Files "sw.js">
+    Header set Cache-Control "no-cache, must-revalidate"
+    Header set Service-Worker-Allowed "/sistema/"
+  </Files>
+</IfModule>
+
+# Docs are for the repository, not the web
+<Files "LEIA-ME.md">
+  Require all denied
+</Files>

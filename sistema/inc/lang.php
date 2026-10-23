@@ -5,6 +5,9 @@
    ============================================================ */
 
 function current_lang(): string {
+    // Background jobs (cron) speak each recipient's language.
+    $force = $GLOBALS['PT_LANG_OVERRIDE'] ?? '';
+    if (in_array($force, ['pt', 'en', 'es'], true)) return $force;
     static $lang = null;
     if ($lang !== null) return $lang;
     $ok = ['pt', 'en', 'es'];
@@ -409,6 +412,51 @@ function pt_dictionary(): array {
                               'es' => 'Demasiados mensajes seguidos. Espere un minuto.'],
         'chat_err_members'=> ['pt' => 'Informe o nome e escolha pelo menos um participante.', 'en' => 'Enter a name and pick at least one member.',
                               'es' => 'Indique el nombre y elija al menos un participante.'],
+
+        // app (PWA) + notifications
+        'remember_me'     => ['pt' => 'Manter conectado neste aparelho', 'en' => 'Keep me signed in on this device',
+                              'es' => 'Mantener la sesión en este dispositivo'],
+        'close'           => ['pt' => 'Fechar', 'en' => 'Close', 'es' => 'Cerrar'],
+        'app_install_title' => ['pt' => 'Instale o app VST Ponto', 'en' => 'Install the VST Time Clock app', 'es' => 'Instale la app VST'],
+        'app_install_text' => ['pt' => 'Fica com um ícone na tela inicial e abre em tela cheia, como um aplicativo.',
+                              'en' => 'Get an icon on your home screen that opens full screen, like an app.',
+                              'es' => 'Tendrá un ícono en la pantalla de inicio que abre a pantalla completa, como una app.'],
+        'app_install_btn' => ['pt' => 'Instalar', 'en' => 'Install', 'es' => 'Instalar'],
+        'app_install_ios' => ['pt' => 'No iPhone: toque em Compartilhar (□↑) no Safari e depois em "Adicionar à Tela de Início".',
+                              'en' => 'On iPhone: tap Share (□↑) in Safari, then "Add to Home Screen".',
+                              'es' => 'En iPhone: toque Compartir (□↑) en Safari y luego "Agregar a inicio".'],
+        'notif_title'     => ['pt' => 'Notificações', 'en' => 'Notifications', 'es' => 'Notificaciones'],
+        'notif_off_text'  => ['pt' => 'Receba avisos de mensagens novas e lembretes de ponto, mesmo com o app fechado.',
+                              'en' => 'Get alerts for new messages and clock-in reminders, even with the app closed.',
+                              'es' => 'Reciba avisos de mensajes nuevos y recordatorios, incluso con la app cerrada.'],
+        'notif_enable'    => ['pt' => 'Ativar notificações', 'en' => 'Turn on notifications', 'es' => 'Activar notificaciones'],
+        'notif_on_text'   => ['pt' => 'Notificações ativadas neste aparelho.', 'en' => 'Notifications are on for this device.',
+                              'es' => 'Notificaciones activadas en este dispositivo.'],
+        'notif_test'      => ['pt' => 'Enviar teste', 'en' => 'Send a test', 'es' => 'Enviar prueba'],
+        'notif_disable'   => ['pt' => 'Desativar', 'en' => 'Turn off', 'es' => 'Desactivar'],
+        'notif_denied'    => ['pt' => 'As notificações estão bloqueadas. Libere nas configurações do navegador ou do celular para este site.',
+                              'en' => 'Notifications are blocked. Allow them for this site in your browser or phone settings.',
+                              'es' => 'Las notificaciones están bloqueadas. Permítalas para este sitio en la configuración.'],
+        'notif_unavailable'=> ['pt' => 'Notificações indisponíveis no servidor.', 'en' => 'Notifications are not available on the server.',
+                               'es' => 'Notificaciones no disponibles en el servidor.'],
+        'notif_generic'   => ['pt' => 'Você tem uma nova notificação. Toque para abrir.', 'en' => 'You have a new notification. Tap to open.',
+                              'es' => 'Tiene una nueva notificación. Toque para abrir.'],
+        'notif_test_title'=> ['pt' => 'VST Ponto', 'en' => 'VST Time Clock', 'es' => 'VST'],
+        'notif_test_body' => ['pt' => 'Notificações funcionando! 👍', 'en' => 'Notifications are working! 👍', 'es' => '¡Notificaciones funcionando! 👍'],
+        'notif_test_sent' => ['pt' => 'Teste enviado. Deve chegar em alguns segundos.', 'en' => 'Test sent. It should arrive in a few seconds.',
+                              'es' => 'Prueba enviada. Debería llegar en unos segundos.'],
+        'remind_in_title' => ['pt' => 'Registrar entrada', 'en' => 'Clock in', 'es' => 'Registrar entrada'],
+        'remind_in_body'  => ['pt' => 'Sua jornada começou às {t} e ainda não há entrada registrada hoje.',
+                              'en' => 'Your shift started at {t} and there is no clock-in yet today.',
+                              'es' => 'Su jornada empezó a las {t} y aún no hay entrada registrada hoy.'],
+        'remind_out_title'=> ['pt' => 'Registrar saída', 'en' => 'Clock out', 'es' => 'Registrar salida'],
+        'remind_out_body' => ['pt' => 'Sua jornada terminou às {t}. Não esqueça de registrar a saída.',
+                              'en' => 'Your shift ended at {t}. Don\'t forget to clock out.',
+                              'es' => 'Su jornada terminó a las {t}. No olvide registrar la salida.'],
+        'reminders'       => ['pt' => 'Lembretes de ponto no celular', 'en' => 'Clock reminders on the phone', 'es' => 'Recordatorios en el teléfono'],
+        'reminders_hint'  => ['pt' => 'Avisa quem ainda não registrou a entrada (após a tolerância) e quem esqueceu a saída (30 min após o fim). Precisa da tarefa agendada (cron) na HostGator.',
+                              'en' => 'Alerts people who haven\'t clocked in (after the tolerance) and who forgot to clock out (30 min after the end). Needs the HostGator cron job.',
+                              'es' => 'Avisa a quien no registró la entrada (tras la tolerancia) y a quien olvidó la salida (30 min tras el fin). Requiere la tarea programada (cron).'],
 
         // install
         'install_title'   => ['pt' => 'Instalação do VST Ponto', 'en' => 'VST Time Clock setup', 'es' => 'Instalación de VST Control Horario'],

@@ -36,6 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         pt_db()->prepare("UPDATE pt_users SET password_hash = ?, must_change_password = 1 WHERE id = ?")
             ->execute([password_hash(PT_DEFAULT_PASSWORD, PASSWORD_DEFAULT), $user['id']]);
         pt_db()->prepare("DELETE FROM pt_login_attempts WHERE username = ?")->execute([$user['username']]);
+        remember_forget_user((int)$user['id']);   // signs the person out of every phone
         audit('reset_password', 'user', (int)$user['id'], null, null, trim((string)($_POST['reason'] ?? '')));
         flash('ok', t('reset_pw_done', ['u' => $user['username'], 'p' => PT_DEFAULT_PASSWORD]));
         redirect('usuario.php?id=' . (int)$user['id']);
