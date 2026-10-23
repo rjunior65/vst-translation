@@ -117,7 +117,74 @@ code.user{background:var(--gray);border:1px solid var(--border);border-radius:6p
 .punch-type{flex:1}
 .punch-dist{font-size:.82rem}
 
+/* Counters (employee home) */
+.counters{display:grid;grid-template-columns:repeat(auto-fit,minmax(90px,1fr));gap:10px;max-width:520px;margin:12px auto 0}
+.counter{background:#fff;border:1px solid var(--border);border-radius:12px;padding:12px 8px;text-align:center;display:flex;flex-direction:column}
+.counter-num{font-size:1.5rem;font-weight:800;color:var(--blue);font-variant-numeric:tabular-nums}
+.counter-label{font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.4px}
+.ot{color:var(--ok)}
+.expected-line{text-align:center;max-width:520px;margin:.6rem auto 0;font-size:.88rem}
+.see-all{font-size:.85rem;font-weight:600;float:right;margin-top:.2rem}
+
+/* Tiles (reports / today) */
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin:.8rem 0}
+.tile{background:#fff;border:1px solid var(--border);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:.1rem}
+a.tile:hover{border-color:var(--blue);text-decoration:none}
+.tile-num{font-size:1.6rem;font-weight:800;color:var(--blue);font-variant-numeric:tabular-nums}
+.tile-num.ok,.tile-num.ot{color:var(--ok)}
+.tile-num.warn{color:var(--warn)}
+.tile-num.bad{color:var(--red)}
+.tile-label{color:var(--muted);font-size:.82rem}
+.month-nav{display:flex;align-items:center;gap:.6rem}
+.btn.disabled{opacity:.35;pointer-events:none}
+.small{font-size:.8rem}
+.nowrap{white-space:nowrap}
+.tags{display:flex;flex-wrap:wrap;gap:.3rem}
+table.grid td.tags{display:table-cell}
+table.grid td.tags .tag{margin:0 .2rem .2rem 0;display:inline-block}
+tr.dayoff td{background:#fafbfc;color:var(--muted)}
+tr.voided td{color:#9aa3af;text-decoration:line-through}
+tr.voided td.tags,tr.voided td:last-child{text-decoration:none}
+.pill{display:inline-block;padding:.15rem .6rem;border-radius:999px;font-size:.8rem;font-weight:700;background:var(--gray);color:var(--muted);white-space:nowrap}
+.pill-working{background:#e8f6ee;color:var(--ok)}
+.pill-break{background:#fff7ed;color:var(--warn)}
+.pill-absent{background:#fdecec;color:var(--red)}
+.pill-not_in{background:#eef4fb;color:var(--blue)}
+
+/* Punches admin */
+.map{height:340px;border-radius:12px;border:1px solid var(--border);margin:.6rem 0;z-index:0}
+.form-wide{max-width:none;margin-bottom:1rem}
+.grid-2,.grid-3{display:grid;gap:0 12px}
+.grid-2{grid-template-columns:1fr 1fr}
+.grid-3{grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}
+.form input[type=time],.form input[type=datetime-local]{width:100%;padding:.6rem .75rem;border:1px solid var(--border);border-radius:8px;font-size:1rem;margin-top:.25rem;font-family:inherit}
+.weekdays{display:flex;flex-wrap:wrap;gap:.2rem 1rem}
+.weekdays label.check{margin-top:.3rem}
+.row-edit summary{list-style:none}
+.row-edit summary::-webkit-details-marker{display:none}
+.row-edit-box{position:absolute;right:16px;background:#fff;border:1px solid var(--border);border-radius:10px;padding:10px;box-shadow:0 10px 30px rgba(0,0,0,.12);z-index:5;display:flex;flex-direction:column;gap:8px;width:min(92vw,420px)}
+.row-edit-box form{display:flex;flex-wrap:wrap;gap:6px}
+.row-edit-box input,.row-edit-box select{padding:.4rem .55rem;border:1px solid var(--border);border-radius:7px;font-family:inherit;font-size:.9rem}
+.row-edit-box input[type=text]{flex:1;min-width:140px}
+.print-title{display:none}
+
+@media print{
+  .topbar,.no-print,.filters,.row-actions,.alert{display:none !important}
+  body{background:#fff}
+  .print-title{display:block;color:#000;font-size:1.1rem}
+  .table-scroll{border:0;overflow:visible}
+  table.grid{min-width:0;font-size:.8rem}
+  table.grid th,table.grid td{padding:.3rem .4rem}
+  .tile{padding:8px}
+  .tile-num{font-size:1.1rem}
+  a{color:inherit}
+}
+
 @media (max-width:600px){
   h1{font-size:1.3rem}
+  .tiles{grid-template-columns:repeat(3,1fr);gap:8px}
+  .tile{padding:10px}
+  .tile-num{font-size:1.2rem}
+  .tile-label{font-size:.74rem;line-height:1.25}
   .topnav{font-size:.9rem}
 }

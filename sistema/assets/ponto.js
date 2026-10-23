@@ -17,6 +17,23 @@
   setInterval(tick, 1000);
   tick();
 
+  /* ---- Live counters: worked / break / overtime keep running while open ---- */
+  var K = C.counters, started = Date.now();
+  function hm(s) { var m = Math.floor(Math.max(0, s) / 60); return Math.floor(m / 60) + ':' + pad(m % 60); }
+  function counters() {
+    var el = Math.floor((Date.now() - started) / 1000);
+    var worked = K.worked + (K.state === 'working' ? el : 0);
+    var brk = K.break + (K.state === 'break' ? el : 0);
+    document.getElementById('c-worked').textContent = hm(worked);
+    document.getElementById('c-break').textContent = hm(brk);
+    var ot = document.getElementById('c-ot');
+    if (ot && K.otAfter !== null) {
+      var diff = worked - K.expected;
+      ot.textContent = hm(diff > K.otAfter ? diff : 0);
+    }
+  }
+  if (K.state === 'working' || K.state === 'break') setInterval(counters, 15000);
+
   /* ---- GPS ---- */
   var gpsLine = document.getElementById('gps');
   var pos = null;          // last good fix {lat, lng, accuracy}

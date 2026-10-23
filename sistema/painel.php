@@ -3,9 +3,12 @@
 require_once __DIR__ . '/inc/bootstrap.php';
 require_once __DIR__ . '/inc/layout.php';
 require_once __DIR__ . '/inc/punch.php';
+require_once __DIR__ . '/inc/hours.php';
 
 $user  = require_user();
 $today = today_punches((int)$user['id']);
+$sched = schedules_all()[(int)$user['schedule_id']] ?? null;
+$sum   = day_summary($today, $sched, date('Y-m-d'), time());
 $last  = $today ? end($today) : null;
 $next  = next_actions($last['type'] ?? null);
 
@@ -27,6 +30,13 @@ $config = [
     'mode'      => $user['work_mode'],
     'locations' => $jsLocs,
     'maxAcc'    => (int)setting('min_gps_accuracy', '100'),
+    'counters'  => [
+        'state'    => $state,
+        'worked'   => $sum['worked'],
+        'break'    => $sum['break'],
+        'expected' => $sum['expected'],
+        'otAfter'  => $sched ? (int)$sched['overtime_after_min'] * 60 : null,
+    ],
     'i18n'      => [
         'locating'    => t('gps_locating'),
         'denied'      => t('gps_denied'),
@@ -61,7 +71,20 @@ page_head(t('my_punch'), $user);
     <p class="alert alert-error" id="punch-error" hidden></p>
   </section>
 
-  <h2 class="section-title"><?= e(t('today')) ?></h2>
+  <section class="counters">
+    <div class="counter"><span class="counter-num" id="c-worked"><?= e(fmt_hm($sum['worked'])) ?></span><span class="counter-label"><?= e(t('h_worked')) ?></span></div>
+    <div class="counter"><span class="counter-num" id="c-break"><?= e(fmt_hm($sum['break'])) ?></span><span class="counter-label"><?= e(t('h_break')) ?></span></div>
+    <?php if ($sched): ?>
+      <div class="counter"><span class="counter-num ot" id="c-ot"><?= e(fmt_hm($sum['overtime'])) ?></span><span class="counter-label"><?= e(t('h_overtime')) ?></span></div>
+    <?php endif; ?>
+  </section>
+  <?php if ($sched && $sum['expected'] > 0): ?>
+    <p class="muted expected-line"><?= e(t('expected_today', ['h' => fmt_hm($sum['expected']),
+        'from' => substr($sched['start_time'], 0, 5), 'to' => substr($sched['end_time'], 0, 5)])) ?>
+      <?php if ($sum['late_min'] > 0): ?> · <span class="tag warn"><?= e(t('tag_late', ['m' => $sum['late_min']])) ?></span><?php endif; ?></p>
+  <?php endif; ?>
+
+  <h2 class="section-title"><?= e(t('today')) ?> <a href="historico.php" class="see-all"><?= e(t('see_history')) ?> ›</a></h2>
   <?php if (!$today): ?>
     <p class="muted"><?= e(t('no_punches_today')) ?></p>
   <?php else: ?>

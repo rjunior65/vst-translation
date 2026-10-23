@@ -21,10 +21,11 @@ $team = pt_db()->query("SELECT e.id, e.name, u.id AS linked_user
                         ORDER BY e.sort_order, e.name")->fetchAll();
 
 $locations = pt_db()->query("SELECT id, name, is_active FROM pt_locations ORDER BY name")->fetchAll();
+$schedules = pt_db()->query("SELECT id, name, is_active FROM pt_schedules ORDER BY name")->fetchAll();
 
 $errors = [];
 $form = $user ?: ['full_name' => '', 'username' => '', 'role' => 'employee', 'work_mode' => 'office',
-                  'employee_id' => null, 'location_id' => null, 'is_active' => 1];
+                  'employee_id' => null, 'location_id' => null, 'schedule_id' => null, 'is_active' => 1];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     csrf_verify();
@@ -49,6 +50,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $form['location_id'] = null;
     foreach ($locations as $l) {
         if ((string)$l['id'] === (string)($_POST['location_id'] ?? '')) $form['location_id'] = (int)$l['id'];
+    }
+    $form['schedule_id'] = null;
+    foreach ($schedules as $s) {
+        if ((string)$s['id'] === (string)($_POST['schedule_id'] ?? '')) $form['schedule_id'] = (int)$s['id'];
     }
     $form['is_active']   = isset($_POST['is_active']) ? 1 : 0;
     $reason              = trim((string)($_POST['reason'] ?? ''));
@@ -80,19 +85,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (!$errors) {
         $fields = [$form['full_name'], $form['username'], $form['role'], $form['work_mode'],
-                   $form['employee_id'], $form['location_id'], $form['is_active']];
+                   $form['employee_id'], $form['location_id'], $form['schedule_id'], $form['is_active']];
         if ($user) {
             pt_db()->prepare("UPDATE pt_users SET full_name = ?, username = ?, role = ?, work_mode = ?,
-                              employee_id = ?, location_id = ?, is_active = ? WHERE id = ?")
+                              employee_id = ?, location_id = ?, schedule_id = ?, is_active = ? WHERE id = ?")
                 ->execute(array_merge($fields, [$user['id']]));
             $new = array_merge($user, array_combine(
-                ['full_name', 'username', 'role', 'work_mode', 'employee_id', 'location_id', 'is_active'], $fields));
+                ['full_name', 'username', 'role', 'work_mode', 'employee_id', 'location_id', 'schedule_id', 'is_active'], $fields));
             audit('update_user', 'user', (int)$user['id'], $user, $new, $reason);
             flash('ok', t('user_saved'));
             redirect('usuario.php?id=' . (int)$user['id']);
         } else {
-            pt_db()->prepare("INSERT INTO pt_users (full_name, username, role, work_mode, employee_id, location_id, is_active,
-                              password_hash, must_change_password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)")
+            pt_db()->prepare("INSERT INTO pt_users (full_name, username, role, work_mode, employee_id, location_id, schedule_id,
+                              is_active, password_hash, must_change_password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 1)")
                 ->execute(array_merge($fields, [password_hash(PT_DEFAULT_PASSWORD, PASSWORD_DEFAULT)]));
             $newId = (int)pt_db()->lastInsertId();
             audit('create_user', 'user', $newId, null, $form, $reason);
@@ -144,6 +149,15 @@ page_head($user ? t('edit_user') : t('new_user'), $me);
       <?php foreach ($locations as $l): ?>
         <option value="<?= (int)$l['id'] ?>" <?= (int)$form['location_id'] === (int)$l['id'] ? 'selected' : '' ?>>
           <?= e($l['name']) ?><?= $l['is_active'] ? '' : ' (' . e(t('inactive')) . ')' ?></option>
+      <?php endforeach; ?>
+    </select>
+
+    <label for="schedule_id"><?= e(t('schedule')) ?></label>
+    <select id="schedule_id" name="schedule_id">
+      <option value=""><?= e(t('no_schedule')) ?></option>
+      <?php foreach ($schedules as $s): ?>
+        <option value="<?= (int)$s['id'] ?>" <?= (int)$form['schedule_id'] === (int)$s['id'] ? 'selected' : '' ?>>
+          <?= e($s['name']) ?><?= $s['is_active'] ? '' : ' (' . e(t('inactive')) . ')' ?></option>
       <?php endforeach; ?>
     </select>
 

@@ -136,7 +136,7 @@ function logout_user(): void {
     session_destroy();
 }
 function home_for(array $u): string {
-    return $u['role'] === 'admin' ? 'admin/' : 'painel.php';
+    return $u['role'] === 'admin' ? 'admin/hoje.php' : 'painel.php';
 }
 
 /* ---- Audit log: every admin change is recorded with old/new values ---- */

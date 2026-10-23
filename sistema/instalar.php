@@ -51,7 +51,7 @@ if (!$done && $_SERVER['REQUEST_METHOD'] === 'POST') {
         audit('install', 'system', null, null, ['admin' => $username]);
         session_regenerate_id(true);
         flash('ok', "Instalação concluída. Seu usuário é {$username}.");
-        redirect('admin/');
+        redirect('admin/hoje.php');
     }
 }
 
