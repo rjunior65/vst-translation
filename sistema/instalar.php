@@ -26,6 +26,18 @@ function run_schema(): void {
 $done   = admin_exists();
 $errors = [];
 $name   = '';
+$updated = false;
+
+// Already installed: a signed-in admin can re-run the schema to add tables from
+// newer versions (every statement is CREATE TABLE IF NOT EXISTS / INSERT IGNORE).
+$admin = $done ? current_user() : null;
+$canUpdate = $admin && $admin['role'] === 'admin' && (int)$admin['must_change_password'] === 0;
+if ($canUpdate && $_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'update') {
+    csrf_verify();
+    run_schema();
+    audit('update_schema', 'system', null, null, null);
+    $updated = true;
+}
 
 if (!$done && $_SERVER['REQUEST_METHOD'] === 'POST') {
     csrf_verify();
@@ -62,7 +74,14 @@ page_head(t('install_title'), null, 'auth-body');
     <h1><?= e(t('install_title')) ?></h1>
     <?php if ($done): ?>
       <p class="alert alert-ok">O sistema já está instalado.</p>
-      <a href="login.php" class="btn btn-primary btn-block"><?= e(t('login_btn')) ?></a>
+      <?php if ($updated): ?>
+        <p class="alert alert-ok">Estrutura do banco atualizada.</p>
+      <?php elseif ($canUpdate): ?>
+        <p class="muted">Depois de enviar uma versão nova do sistema, atualize a estrutura do banco (não apaga nada).</p>
+        <?= csrf_field() ?><input type="hidden" name="action" value="update">
+        <button type="submit" class="btn btn-block">Atualizar estrutura do banco</button>
+      <?php endif; ?>
+      <a href="<?= $admin ? e(home_for($admin)) : 'login.php' ?>" class="btn btn-primary btn-block"><?= e($admin ? t('back') : t('login_btn')) ?></a>
     <?php else: ?>
       <?php if ($errors): ?><div class="alert alert-error"><?php foreach ($errors as $err) echo e($err) . '<br>'; ?></div><?php endif; ?>
       <p class="muted">Cria as tabelas do ponto no banco do site e o primeiro administrador.</p>

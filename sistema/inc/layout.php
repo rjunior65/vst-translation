@@ -1,5 +1,6 @@
 <?php
 /* Shared page frame. page_head() prints <head> + top bar, page_foot() closes it. */
+require_once __DIR__ . '/chat.php';
 
 function lang_links(): string {
     $out = [];
@@ -41,6 +42,8 @@ function page_head(string $title, ?array $user = null, string $bodyClass = ''): 
       <?php endif; ?>
       <a href="<?= $b ?>painel.php"><?= e(t('my_punch')) ?></a>
       <a href="<?= $b ?>historico.php"><?= e(t('history')) ?></a>
+      <?php $unread = chat_unread_total($user); ?>
+      <a href="<?= $b ?>mensagens.php" class="nav-msgs"><?= e(t('messages')) ?> <span class="badge" id="unread-badge" <?= $unread ? '' : 'hidden' ?>><?= $unread ?></span></a>
       <a href="<?= $b ?>senha.php"><?= e(t('my_password')) ?></a>
       <form method="post" action="<?= $b ?>sair.php" class="inline"><?= csrf_field() ?><button class="linklike logout"><?= e(t('logout')) ?></button></form>
       <?= lang_links() ?>
@@ -55,8 +58,31 @@ function page_head(string $title, ?array $user = null, string $bodyClass = ''): 
 }
 
 function page_foot(): void {
+    $user = current_user();
     ?>
 </main>
+<?php if ($user && (int)$user['must_change_password'] === 0): ?>
+<script>
+/* New-message badge + tab title, checked every 30 s on every page. */
+(function () {
+  var badge = document.getElementById('unread-badge'), base = document.title;
+  window.PT_setUnread = function (n) {
+    if (!badge) return;
+    badge.textContent = n; badge.hidden = !n;
+    document.title = (n ? '(' + n + ') ' : '') + base;
+  };
+  if (badge) window.PT_setUnread(parseInt(badge.textContent, 10) || 0);
+  if (window.CHAT) return; // the conversation page polls on its own
+  setInterval(function () {
+    if (document.hidden) return;
+    fetch('<?= base() ?>api/chat.php?action=unread', { credentials: 'same-origin' })
+      .then(function (r) { return r.json(); })
+      .then(function (j) { if (j && j.ok) window.PT_setUnread(j.unread); })
+      .catch(function () {});
+  }, 30000);
+})();
+</script>
+<?php endif; ?>
 </body>
 </html>
 <?php

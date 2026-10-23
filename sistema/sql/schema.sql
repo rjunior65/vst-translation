@@ -109,6 +109,57 @@ CREATE TABLE IF NOT EXISTS pt_login_attempts (
   INDEX idx_user_time (username, attempted_at)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- ---- Chat ---------------------------------------------------
+-- direct: one thread per employee with "the administration" (every admin sees it);
+--         employee_user_id identifies the employee.
+-- group:  created by an admin; members in pt_chat_members (admins always see all).
+CREATE TABLE IF NOT EXISTS pt_chat_conversations (
+  id               INT AUTO_INCREMENT PRIMARY KEY,
+  type             ENUM('direct','group') NOT NULL,
+  title            VARCHAR(120) NULL,
+  employee_user_id INT          NULL UNIQUE,
+  created_by       INT          NOT NULL,
+  last_message_at  DATETIME     NULL,
+  created_at       TIMESTAMP    DEFAULT CURRENT_TIMESTAMP,
+  INDEX idx_last (last_message_at)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS pt_chat_members (
+  conversation_id INT NOT NULL,
+  user_id         INT NOT NULL,
+  PRIMARY KEY (conversation_id, user_id),
+  INDEX idx_user (user_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS pt_chat_messages (
+  id              BIGINT AUTO_INCREMENT PRIMARY KEY,
+  conversation_id INT       NOT NULL,
+  sender_id       INT       NOT NULL,
+  body            TEXT      NOT NULL,
+  created_at      DATETIME  NOT NULL,
+  INDEX idx_conv (conversation_id, id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Files live OUTSIDE public_html (like the CVs); only conversa/arquivo.php can serve them.
+CREATE TABLE IF NOT EXISTS pt_chat_files (
+  id              INT AUTO_INCREMENT PRIMARY KEY,
+  message_id      BIGINT       NOT NULL,
+  conversation_id INT          NOT NULL,
+  stored_name     VARCHAR(80)  NOT NULL,
+  original_name   VARCHAR(200) NOT NULL,
+  mime            VARCHAR(100) NOT NULL,
+  size_bytes      INT          NOT NULL,
+  INDEX idx_msg (message_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Last message each person has seen in each conversation (unread counters).
+CREATE TABLE IF NOT EXISTS pt_chat_reads (
+  conversation_id INT    NOT NULL,
+  user_id         INT    NOT NULL,
+  last_read_id    BIGINT NOT NULL DEFAULT 0,
+  PRIMARY KEY (conversation_id, user_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 -- ---- System settings (key/value, like the site's `settings`) ----
 CREATE TABLE IF NOT EXISTS pt_settings (
   skey   VARCHAR(64) PRIMARY KEY,
