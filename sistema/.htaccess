@@ -1,0 +1,4 @@
+# VST Ponto — /sistema
+# HTTPS redirect and security headers come from the root .htaccess.
+DirectoryIndex index.php
+Options -Indexes

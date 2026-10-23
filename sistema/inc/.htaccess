@@ -1,0 +1,9 @@
+# Block all direct web access to this folder (config, DB, auth).
+# Works on Apache 2.4 (HostGator).
+Require all denied
+
+# Fallback for older Apache 2.2
+<IfModule !mod_authz_core.c>
+  Order allow,deny
+  Deny from all
+</IfModule>
