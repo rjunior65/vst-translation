@@ -66,10 +66,13 @@ try {
 
     $ext     = strtolower(pathinfo((string)$f['name'], PATHINFO_EXTENSION));
     $allowed = cv_allowed_types();
-    $mime    = function_exists('finfo_open')
-        ? (string)finfo_file(finfo_open(FILEINFO_MIME_TYPE), $f['tmp_name'])
-        : '';
-    if (!isset($allowed[$ext]) || ($mime !== '' && !in_array($mime, $allowed[$ext], true))) fail('cv_type');
+    if (!isset($allowed[$ext])) fail('cv_type');
+    if (function_exists('finfo_open')) {
+        // If the real type can't be read, refuse: never fall back to trusting the extension.
+        $mime = @finfo_file(finfo_open(FILEINFO_MIME_TYPE), $f['tmp_name']);
+        if (!$mime) fail('cv_upload');
+        if (!in_array($mime, $allowed[$ext], true)) fail('cv_type');
+    }
 
     if (!is_dir(UPLOAD_DIR_CV)) @mkdir(UPLOAD_DIR_CV, 0755, true);
     $stored = 'cv_' . date('Ymd') . '_' . bin2hex(random_bytes(10)) . '.' . $ext;
