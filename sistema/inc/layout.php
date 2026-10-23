@@ -33,10 +33,9 @@ function page_head(string $title, ?array $user = null, string $bodyClass = ''): 
     <nav class="topnav">
       <?php if ($user['role'] === 'admin'): ?>
         <a href="<?= $b ?>admin/"><?= e(t('users')) ?></a>
-        <a href="<?= $b ?>admin/importar.php"><?= e(t('import')) ?></a>
-      <?php else: ?>
-        <a href="<?= $b ?>painel.php"><?= e(t('home')) ?></a>
+        <a href="<?= $b ?>admin/locais.php"><?= e(t('locations')) ?></a>
       <?php endif; ?>
+      <a href="<?= $b ?>painel.php"><?= e(t('my_punch')) ?></a>
       <a href="<?= $b ?>senha.php"><?= e(t('my_password')) ?></a>
       <form method="post" action="<?= $b ?>sair.php" class="inline"><?= csrf_field() ?><button class="linklike logout"><?= e(t('logout')) ?></button></form>
       <?= lang_links() ?>
