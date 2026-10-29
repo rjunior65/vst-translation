@@ -19,3 +19,6 @@ images/team/*
 images/ceos/
 images/guesthouse/
 videos/guesthouse*.mp4
+
+# Uchi Falls videos and covers (third-party footage, kept local, uploaded to the server by hand)
+assets/videos/

@@ -674,3 +674,99 @@ a.contact-value:hover { color: var(--vst-red); }
 .form-status { margin: .8rem 0 0; text-align: center; font-weight: 600; min-height: 1.2em; }
 .form-status.ok { color: #1b8a3a; }
 .form-status.err { color: var(--vst-red); }
+
+/* =================================================================
+   TOURISM — UCHI FALLS / PARUIMA VILLAGE  (video gallery + modal)
+   Covers are shown whole (object-fit: contain) over a blurred copy of
+   themselves, so vertical and horizontal videos share one card size
+   without cropping the waterfall.
+   ================================================================= */
+.uchi {
+  position: relative; overflow: hidden; margin: 64px 0 8px; padding: clamp(28px, 5vw, 56px) clamp(16px, 4vw, 48px);
+  border-radius: var(--radius-lg); color: #fff;
+  background:
+    radial-gradient(700px 380px at 85% -10%, rgba(64, 160, 190, .35), transparent 60%),
+    radial-gradient(600px 360px at 0% 110%, rgba(198, 40, 40, .22), transparent 60%),
+    linear-gradient(160deg, var(--vst-navy) 0%, var(--vst-blue) 55%, #0f4658 100%);
+  box-shadow: var(--shadow-lg);
+}
+.uchi-head { text-align: center; max-width: 780px; margin: 0 auto; }
+.uchi-head .section-eyebrow { color: #ff9e98; }
+.uchi-title { color: #fff; font-size: clamp(1.6rem, 4vw, 2.5rem); margin: .3rem 0 .7rem; }
+.uchi-lead { color: rgba(255, 255, 255, .84); font-size: 1.05rem; margin: 0; }
+
+.uchi-grid { display: grid; grid-template-columns: 1fr; gap: 18px; margin-top: 34px; }
+@media (min-width: 560px) { .uchi-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 980px) { .uchi-grid { grid-template-columns: repeat(4, 1fr); } }
+
+.uchi-card {
+  display: flex; flex-direction: column; border-radius: var(--radius); overflow: hidden;
+  background: rgba(255, 255, 255, .06); border: 1px solid rgba(255, 255, 255, .12);
+  transition: transform .35s var(--ease), box-shadow .35s var(--ease), border-color .35s;
+}
+.uchi-card:hover { transform: translateY(-6px); box-shadow: 0 18px 40px rgba(0, 0, 0, .3); border-color: rgba(255, 255, 255, .25); }
+.uchi-card--village { border-color: rgba(255, 158, 152, .35); }
+
+.uchi-play { display: block; width: 100%; padding: 0; border: 0; background: none; cursor: pointer; color: inherit; font: inherit; text-align: left; }
+.uchi-frame { position: relative; display: block; aspect-ratio: 4 / 5; overflow: hidden; background: #081a30; }
+.uchi-frame::after { content: ""; position: absolute; inset: 0; background: linear-gradient(transparent 55%, rgba(4, 14, 28, .6)); pointer-events: none; }
+.uchi-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: blur(18px) brightness(.55) saturate(1.2); transform: scale(1.25); }
+.uchi-poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; transition: transform .7s var(--ease); }
+.uchi-play:hover .uchi-poster, .uchi-play:focus-visible .uchi-poster { transform: scale(1.04); }
+.uchi-play-icon {
+  position: absolute; z-index: 2; top: 50%; left: 50%; width: 66px; height: 66px; margin: -33px 0 0 -33px; border-radius: 50%;
+  display: grid; place-items: center; background: rgba(255, 255, 255, .2); border: 2px solid rgba(255, 255, 255, .75);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); box-shadow: 0 10px 30px rgba(0, 0, 0, .35);
+  transition: transform .3s var(--ease), background .3s;
+}
+.uchi-play-icon svg { width: 28px; height: 28px; fill: #fff; margin-left: 4px; }
+.uchi-play:hover .uchi-play-icon, .uchi-play:focus-visible .uchi-play-icon { background: var(--vst-red); border-color: var(--vst-red); transform: scale(1.08); }
+.uchi-play:focus-visible { outline: 3px solid #fff; outline-offset: -3px; }
+.uchi-watch, .uchi-duration, .uchi-tag {
+  position: absolute; z-index: 2; font-size: .74rem; font-weight: 700; letter-spacing: .02em; padding: .28rem .65rem; border-radius: 999px;
+}
+.uchi-watch { left: 12px; bottom: 12px; background: rgba(255, 255, 255, .92); color: var(--vst-navy); }
+.uchi-duration { right: 12px; bottom: 12px; background: rgba(4, 14, 28, .7); color: #fff; font-variant-numeric: tabular-nums; }
+.uchi-tag { left: 12px; top: 12px; background: var(--vst-red); color: #fff; }
+.uchi-card-body { padding: 14px 16px 18px; }
+.uchi-card-body h4 { color: #fff; font-size: 1.02rem; margin: 0 0 .3rem; }
+.uchi-card-body p { color: rgba(255, 255, 255, .72); font-size: .9rem; margin: 0; }
+
+.uchi-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 32px; }
+.uchi .btn-outline { color: #fff; border-color: rgba(255, 255, 255, .6); }
+.uchi .btn-outline:hover { background: #fff; color: var(--vst-navy); }
+.uchi-credits { text-align: center; font-size: .78rem; color: rgba(255, 255, 255, .58); margin: 18px 0 0; }
+
+/* Video modal */
+.vmodal { position: fixed; inset: 0; z-index: 2100; background: rgba(4, 12, 24, .94); display: flex; align-items: center; justify-content: center; padding: 16px; animation: fadeIn .25s ease; }
+.vmodal[hidden] { display: none; }
+.vmodal-box { width: 100%; max-width: 1100px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.vmodal-stage { position: relative; width: 100%; display: flex; align-items: center; justify-content: center; padding: 0 64px; }
+.vmodal-stage video {
+  display: block; aspect-ratio: var(--ratio, 9 / 16); height: 74vh; width: auto; max-width: 100%;
+  background: #000; border-radius: 14px; box-shadow: 0 24px 70px rgba(0, 0, 0, .55);
+}
+.vmodal-stage.is-horizontal video { width: 100%; height: auto; max-height: 74vh; }
+.vmodal-close { position: fixed; top: 14px; right: 18px; z-index: 3; width: 46px; height: 46px; border-radius: 50%; border: none;
+  background: rgba(255, 255, 255, .14); color: #fff; font-size: 2rem; line-height: 1; cursor: pointer; transition: background .2s; }
+.vmodal-close:hover, .vmodal-close:focus-visible { background: var(--vst-red); }
+.vmodal-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 50px; height: 50px; border-radius: 50%; border: none;
+  background: rgba(255, 255, 255, .14); color: #fff; font-size: 1.2rem; cursor: pointer; transition: background .2s; }
+.vmodal-nav:hover, .vmodal-nav:focus-visible { background: var(--vst-red); }
+.vmodal-prev { left: 0; }
+.vmodal-next { right: 0; }
+.vmodal-info { text-align: center; max-width: 640px; }
+.vmodal-info h3 { color: #fff; margin: 0 0 .2rem; font-size: 1.15rem; }
+.vmodal-info p { color: rgba(255, 255, 255, .75); margin: 0; font-size: .92rem; }
+@media (max-width: 640px) {
+  .vmodal { padding: 60px 8px 16px; }
+  .vmodal-stage { padding: 0; }
+  .vmodal-stage video { height: 68vh; }
+  .vmodal-nav { width: 40px; height: 40px; top: auto; bottom: -56px; transform: none; }
+  .vmodal-prev { left: calc(50% - 52px); }
+  .vmodal-next { right: calc(50% - 52px); }
+  .vmodal-info { margin-top: 52px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .uchi-card, .uchi-poster, .uchi-play-icon { transition: none; }
+}

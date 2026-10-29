@@ -317,6 +317,8 @@ const translations = {
     tour_d2_name: "Malali Reservation", tour_d2_loc: "Demerara River, Guyana", tour_d2_desc: "A peaceful riverside Amerindian community surrounded by rainforest, with river beaches and a relaxing natural setting to unwind and explore.",
     tour_d3_name: "Destination Name", tour_d3_loc: "Location", tour_d3_desc: "Short description of this destination. Add your own text and photos here.",
     tour_view: "View Photos", tour_request: "Request Information", gallery_title: "Tourism Gallery",
+    // Uchi Falls — Paruima Village (video gallery)
+    uchi_eyebrow: "Upper Mazaruni · Guyana", uchi_title: "Uchi Falls — Paruima Village", uchi_lead: "Explore the scenery of Paruima Village and the remarkable Uchi Falls in Guyana's Upper Mazaruni region. Discover views of the waterfall, rivers and surrounding nature. Contact VST for information about tourism assistance.", uchi_v1_t: "The power of the water", uchi_v1_d: "Front view and details of the main drop of Uchi Falls.", uchi_v2_t: "The path to the falls", uchi_v2_d: "River, rocks and the first sight of the waterfall.", uchi_v3_t: "Aerial view", uchi_v3_d: "Aerial view of a waterfall in Guyana.", uchi_v4_t: "Paruima Village — Landscapes and community", uchi_v4_d: "The village, its people, the river and the surrounding nature.", uchi_v1_aria: "Watch video: The power of the water", uchi_v2_aria: "Watch video: The path to the falls", uchi_v3_aria: "Watch video: Aerial view", uchi_v4_aria: "Watch video: Paruima Village — Landscapes and community", uchi_watch: "Watch video", uchi_village_tag: "The village", uchi_request: "Request Information", uchi_credits: "Video credits:", uchi_credits_note: "Footage belongs to its respective authors.", uchi_close: "Close video", uchi_prev: "Previous video", uchi_next: "Next video", uchi_wa_msg: "Hello! I would like information about visiting Paruima Village and Uchi Falls.",
     // Other services
     other_eyebrow: "More", other_title: "Other Services", other_lead: "Additional professional services we are happy to provide.",
     other_1_t: "Document Organization", other_1_d: "Help gathering and organizing the paperwork you need.",
@@ -429,6 +431,8 @@ const translations = {
     tour_d2_name: "Malali Reservation", tour_d2_loc: "Rio Demerara, Guiana", tour_d2_desc: "Uma comunidade indígena tranquila às margens do rio, cercada por floresta tropical, com praias de rio e um ambiente natural relaxante para descansar e explorar.",
     tour_d3_name: "Nome do Destino", tour_d3_loc: "Localização", tour_d3_desc: "Breve descrição deste destino. Adicione seu próprio texto e fotos aqui.",
     tour_view: "Ver Fotos", tour_request: "Solicitar Informações", gallery_title: "Galeria de Turismo",
+    // Uchi Falls — Paruima Village (video gallery)
+    uchi_eyebrow: "Upper Mazaruni · Guiana", uchi_title: "Cachoeira Uchi — Paruima Village", uchi_lead: "Descubra as paisagens de Paruima Village e a impressionante Cachoeira Uchi, na região de Upper Mazaruni, Guiana. Explore as imagens das quedas d'água, dos rios e do ambiente natural que tornam essa região especial. Entre em contato com a VST para obter informações sobre assistência turística.", uchi_v1_t: "A força das águas", uchi_v1_d: "Visão frontal e detalhes da queda principal da Cachoeira Uchi.", uchi_v2_t: "Caminho da cachoeira", uchi_v2_d: "Rio, rochas e a primeira vista da queda d'água.", uchi_v3_t: "Vista aérea", uchi_v3_d: "Vista aérea de uma cachoeira na Guiana.", uchi_v4_t: "Paruima Village — Paisagens e comunidade", uchi_v4_d: "A vila, seu povo, o rio e a natureza ao redor.", uchi_v1_aria: "Ver vídeo: A força das águas", uchi_v2_aria: "Ver vídeo: Caminho da cachoeira", uchi_v3_aria: "Ver vídeo: Vista aérea", uchi_v4_aria: "Ver vídeo: Paruima Village — Paisagens e comunidade", uchi_watch: "Ver vídeo", uchi_village_tag: "A vila", uchi_request: "Solicitar informações", uchi_credits: "Créditos dos vídeos:", uchi_credits_note: "As gravações pertencem aos seus respectivos autores.", uchi_close: "Fechar vídeo", uchi_prev: "Vídeo anterior", uchi_next: "Próximo vídeo", uchi_wa_msg: "Olá! Gostaria de informações sobre visitas a Paruima Village e à Cachoeira Uchi.",
     other_eyebrow: "Mais", other_title: "Outros Serviços", other_lead: "Serviços profissionais adicionais que teremos prazer em oferecer.",
     other_1_t: "Organização de Documentos", other_1_d: "Ajuda para reunir e organizar a documentação necessária.",
     other_2_t: "Orientação Personalizada", other_2_d: "Apoio personalizado adaptado à sua situação específica.",
@@ -533,6 +537,8 @@ const translations = {
     tour_d2_name: "Malali Reservation", tour_d2_loc: "Río Demerara, Guyana", tour_d2_desc: "Una tranquila comunidad amerindia a orillas del río, rodeada de selva tropical, con playas de río y un ambiente natural relajante para descansar y explorar.",
     tour_d3_name: "Nombre del Destino", tour_d3_loc: "Ubicación", tour_d3_desc: "Breve descripción de este destino. Agrega tu propio texto y fotos aquí.",
     tour_view: "Ver Fotos", tour_request: "Solicitar Información", gallery_title: "Galería de Turismo",
+    // Uchi Falls — Paruima Village (video gallery)
+    uchi_eyebrow: "Upper Mazaruni · Guyana", uchi_title: "Cascada Uchi — Paruima Village", uchi_lead: "Descubre los paisajes de Paruima Village y la impresionante Cascada Uchi, en la región de Upper Mazaruni, Guyana. Disfruta de imágenes de la cascada, los ríos y su entorno natural. Contacta a VST para consultar sobre asistencia turística.", uchi_v1_t: "La fuerza del agua", uchi_v1_d: "Vista frontal y detalles de la caída principal de la Cascada Uchi.", uchi_v2_t: "El camino a la cascada", uchi_v2_d: "Río, rocas y la primera vista de la caída de agua.", uchi_v3_t: "Vista aérea", uchi_v3_d: "Vista aérea de una cascada en Guyana.", uchi_v4_t: "Paruima Village — Paisajes y comunidad", uchi_v4_d: "La aldea, su gente, el río y la naturaleza que la rodea.", uchi_v1_aria: "Ver video: La fuerza del agua", uchi_v2_aria: "Ver video: El camino a la cascada", uchi_v3_aria: "Ver video: Vista aérea", uchi_v4_aria: "Ver video: Paruima Village — Paisajes y comunidad", uchi_watch: "Ver video", uchi_village_tag: "La aldea", uchi_request: "Solicitar información", uchi_credits: "Créditos de los videos:", uchi_credits_note: "Las grabaciones pertenecen a sus respectivos autores.", uchi_close: "Cerrar video", uchi_prev: "Video anterior", uchi_next: "Video siguiente", uchi_wa_msg: "¡Hola! Me gustaría información sobre visitas a Paruima Village y a la Cascada Uchi.",
     other_eyebrow: "Más", other_title: "Otros Servicios", other_lead: "Servicios profesionales adicionales que ofrecemos con gusto.",
     other_1_t: "Organización de Documentos", other_1_d: "Ayuda para reunir y organizar la documentación que necesitas.",
     other_2_t: "Orientación Personalizada", other_2_d: "Apoyo personalizado adaptado a tu situación específica.",
@@ -626,6 +632,11 @@ const WA_GREETING = {
     $$("[data-i18n-aria]").forEach((el) => {
       const val = t(el.getAttribute("data-i18n-aria"));
       if (val) el.setAttribute("aria-label", val);
+    });
+    // Image alt texts
+    $$("[data-i18n-alt]").forEach((el) => {
+      const val = t(el.getAttribute("data-i18n-alt"));
+      if (val) el.setAttribute("alt", val);
     });
 
     // Active state on all language buttons
@@ -1183,6 +1194,12 @@ const WA_GREETING = {
     if (waBtn && number) waBtn.href = buildWaLink(number, WA_GREETING[currentLang]);
     const waRow = $('[data-value="whatsapp"]');
     if (waRow && waRow.tagName === "A" && number) waRow.href = buildWaLink(number, WA_GREETING[currentLang]);
+    // "WhatsApp" next to Request Information in the Uchi Falls block
+    const waUchi = $("#uchiWhats");
+    if (waUchi) {
+      if (number) { waUchi.href = buildWaLink(number, t("uchi_wa_msg")); waUchi.hidden = false; }
+      else waUchi.hidden = true;
+    }
   }
 
   /* ---------------- Contact form ---------------- */
@@ -1259,6 +1276,66 @@ const WA_GREETING = {
     });
   }
 
+  /* ---------------- Uchi Falls video gallery ----------------
+     Only the WebP covers load with the page. A video is fetched when the
+     visitor presses play, shown in a modal at its own proportion
+     (vertical or horizontal), and unloaded again when the modal closes. */
+  function initUchiVideos() {
+    const modal = $("#uchiModal");
+    const buttons = $$(".uchi-play");
+    if (!modal || !buttons.length) return;
+    const video = $("#uchiVideo"), title = $("#uchiModalTitle"), caption = $("#uchiModalCaption");
+    const stage = $(".vmodal-stage", modal);
+    let index = 0, lastFocus = null;
+
+    function load(i) {
+      index = (i + buttons.length) % buttons.length;
+      const b = buttons[index];
+      video.pause();
+      video.poster = b.dataset.poster;
+      video.src = b.dataset.video;                       // fetched only now
+      stage.style.setProperty("--ratio", b.dataset.ratio);
+      stage.classList.toggle("is-horizontal", b.dataset.ratio === "16 / 9");
+      title.textContent = t(b.dataset.titleKey);
+      caption.textContent = t(b.dataset.captionKey);
+      const p = video.play();                            // started by the visitor's click
+      if (p && p.catch) p.catch(() => {});
+    }
+    function open(i, from) {
+      lastFocus = from || document.activeElement;
+      modal.hidden = false;
+      document.body.style.overflow = "hidden";
+      load(i);
+      $("#uchiClose").focus();
+    }
+    function close() {
+      video.pause();
+      video.removeAttribute("src");                      // stop downloading
+      video.load();
+      modal.hidden = true;
+      document.body.style.overflow = "";
+      if (lastFocus) lastFocus.focus();
+    }
+
+    buttons.forEach((b, i) => b.addEventListener("click", () => open(i, b)));
+    $("#uchiClose").addEventListener("click", close);
+    $("#uchiPrev").addEventListener("click", () => load(index - 1));
+    $("#uchiNext").addEventListener("click", () => load(index + 1));
+    modal.addEventListener("click", (e) => { if (e.target === modal) close(); });
+    document.addEventListener("keydown", (e) => {
+      if (modal.hidden) return;
+      if (e.key === "Escape") close();
+      else if (e.key === "ArrowLeft" && document.activeElement !== video) load(index - 1);
+      else if (e.key === "ArrowRight" && document.activeElement !== video) load(index + 1);
+      else if (e.key === "Tab") {                        // keep keyboard focus inside the modal
+        const f = $$("button, video", modal).filter((el) => el.offsetParent !== null);
+        const first = f[0], last = f[f.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    });
+  }
+
   /* ---------------- Footer year ---------------- */
   function initYear() { const y = $("#year"); if (y) y.textContent = new Date().getFullYear(); }
 
@@ -1271,6 +1348,7 @@ const WA_GREETING = {
     initMenu();
     initTeamFilter();
     initLightbox();
+    initUchiVideos();
     initFaq();
     initScroll();
     initReveal();
